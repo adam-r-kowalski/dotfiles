@@ -47,7 +47,7 @@ let maplocalleader=","
 filetype plugin indent on
 
 set mouse=a
-set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
 
 set signcolumn=yes
 

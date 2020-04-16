@@ -6,7 +6,10 @@ Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
 Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
+Plug 'puremourning/vimspector'
 Plug 'ryanoasis/vim-devicons'
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 set nocompatible
@@ -24,6 +27,7 @@ set nowrap
 
 set backspace=indent,eol,start
 
+set number
 set relativenumber
 set noshowmode
 set laststatus=2

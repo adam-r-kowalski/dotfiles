@@ -4,12 +4,19 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
 Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'puremourning/vimspector'
 Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'adam-r-kowalski/vim-test'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'justinmk/vim-sneak'
+Plug 'scrooloose/nerdcommenter'
+Plug 'jpalardy/vim-slime'
 call plug#end()
 
 set nocompatible
@@ -39,10 +46,13 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-set tabstop=2
+autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype cpp setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
+set tabstop=4
 set autoindent
 set copyindent
-set shiftwidth=2
+set shiftwidth=4
 set shiftround
 
 let mapleader="\<space>"
@@ -88,6 +98,11 @@ nnoremap <silent> <leader>f :<C-u>CocList files<cr>
 nnoremap <silent> <leader>b :<C-u>CocList buffers<cr>
 nnoremap <silent> <leader>g :<C-u>CocList grep<cr>
 nnoremap <silent> <leader>i :<C-u>CocCommand clangd.symbolInfo<cr>
+nnoremap <silent> <leader>tn :TestNearest<CR>
+nnoremap <silent> <leader>tf :TestFile<CR>
+nnoremap <silent> <leader>ts :TestSuite<CR>
+nnoremap <silent> <leader>tl :TestLast<CR>
+nnoremap <silent> <leader>tv :TestVisit<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <leader>d :Dispatch<CR>
 nnoremap <leader>D :Focus 
@@ -97,6 +112,9 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
+xmap <localleader>e <Plug>SlimeRegionSend
+nmap <localleader>e <Plug>SlimeParagraphSend
+nmap <localleader>E <Plug>SlimeConfig
 nmap <silent> <localleader>c <Plug>VimspectorContinue
 nmap <silent> <localleader>s <Plug>VimspectorStop
 nmap <silent> <localleader>r <Plug>VimspectorRestart
@@ -107,6 +125,9 @@ nmap <silent> <localleader>f <Plug>VimspectorAddFunctionBreakpoint
 nmap <silent> <localleader>o <Plug>VimspectorStepOver
 nmap <silent> <localleader>i <Plug>VimspectorStepInto
 nmap <silent> <localleader>u <Plug>VimspectorStepOut
+nnoremap <localleader>gd :Gvdiffsplit!<CR>
+nnoremap <localleader>gl :diffget //2<CR>
+nnoremap <localleader>gm :diffget //3<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -144,3 +165,18 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
+let test#strategy = "vimterminal"
+let test#python#runner = 'pytest'
+let test#python#pytest#options = '-p no:warnings -s'
+
+let test#custom_runners = {'zig': ['ZigTest']}
+
+autocmd FileType cpp let b:dispatch = 'cd build && conan build ..'
+
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
+let g:slime_target = "kitty"

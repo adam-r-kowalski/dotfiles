@@ -6,6 +6,7 @@ Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
 Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 set nocompatible

@@ -137,10 +137,15 @@ function! s:show_documentation()
   endif
 endfunction
 
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+
+tnoremap <C-H> <C-W><C-H>
+tnoremap <C-J> <C-W><C-J>
+tnoremap <C-K> <C-W><C-K>
+tnoremap <C-L> <C-W><C-L>
 
 tnoremap <ESC> <C-\><C-n>
 tnoremap jk <C-\><C-n>
@@ -179,4 +184,7 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
-let g:slime_target = "kitty"
+let g:slime_target = "vimterminal"
+
+set splitbelow
+set splitright

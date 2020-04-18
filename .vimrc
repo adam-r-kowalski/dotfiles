@@ -22,6 +22,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-dispatch'
 Plug 'liuchengxu/vim-which-key'
+Plug 'tpope/vim-abolish'
 call plug#end()
 
 set encoding=UTF-8
@@ -53,8 +54,6 @@ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype cpp setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 set tabstop=4
-set autoindent
-set copyindent
 set shiftwidth=4
 set shiftround
 

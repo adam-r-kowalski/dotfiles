@@ -192,6 +192,10 @@
   :ensure t)
 
 
+(use-package evil-magit
+  :ensure t)
+
+
 (use-package avy
   :ensure t)
 
@@ -290,7 +294,7 @@
  '(custom-safe-themes
    '("3577ee091e1d318c49889574a31175970472f6f182a9789f1a3e9e4513641d86" "229c5cf9c9bd4012be621d271320036c69a14758f70e60385e87880b46d60780" "e074be1c799b509f52870ee596a5977b519f6d269455b84ed998666cf6fc802a" "bc836bf29eab22d7e5b4c142d201bcce351806b7c1f94955ccafab8ce5b20208" default))
  '(package-selected-packages
-   '(beacon magit ivy-posframe doom-modeline dap-lldb posframe flycheck yasnippet all-the-icons company-box counsel-projectile projectile lsp-ivy company-lsp lsp-ui dap-mode lsp-mode sublimity exec-path-from-shell vterm which-key company swiper key-chord general use-package evil)))
+   '(evil-magit beacon magit ivy-posframe doom-modeline dap-lldb posframe flycheck yasnippet all-the-icons company-box counsel-projectile projectile lsp-ivy company-lsp lsp-ui dap-mode lsp-mode sublimity exec-path-from-shell vterm which-key company swiper key-chord general use-package evil)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

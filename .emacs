@@ -26,7 +26,11 @@
 (setq frame-resize-pixelwise t
       make-backup-files nil
       auto-save-default nil
-      inhibit-startup-screen t)
+      inhibit-startup-screen t
+      ring-bell-function 'ignore)
+
+(menu-bar--display-line-numbers-mode-relative)
+(global-display-line-numbers-mode)
 
 
 (use-package exec-path-from-shell
@@ -38,13 +42,35 @@
 
 (use-package evil
   :ensure t
-  :init (setq evil-want-C-u-scroll t)
+  :init
+  (setq evil-want-C-u-scroll t
+	evil-want-integration t
+	evil-want-keybinding nil)
   :config (evil-mode 1))
 
 
-(use-package nord-theme
+(use-package evil-collection
+  :after evil
   :ensure t
-  :config (load-theme 'nord t))
+  :init (setq evil-collection-company-use-tng nil)
+  :config (evil-collection-init))
+
+
+(use-package doom-themes
+  :ensure t
+  :init
+  (setq doom-themes-enable-bold t
+	doom-themes-enable-italic t
+	doom-themes-treemacs-theme "doom-colors")
+  :config
+  (load-theme 'doom-nord t)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
+
+
+(use-package doom-modeline
+  :ensure t
+  :config (doom-modeline-mode 1))
 
 
 (use-package yasnippet
@@ -88,6 +114,12 @@
   :config (ivy-mode 1))
 
 
+(use-package ivy-posframe
+  :ensure t
+  :init (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+  :config (ivy-posframe-mode 1))
+
+
 (use-package which-key
   :ensure t
   :config (which-key-mode))
@@ -126,11 +158,20 @@
   :config (lsp-treemacs-sync-mode 1))
 
 
+(use-package posframe
+  :ensure t)
+
+
 (use-package dap-mode
   :ensure t
   :config
-  (require 'dap-gdb-lldb)
-  (dap-gdb-lldb-setup))
+  (require 'dap-lldb)
+  (require 'dap-python)
+  (dap-mode 1)
+  (dap-ui-mode 1)
+  (dap-tooltip-mode 1)
+  (tooltip-mode 1)
+  (dap-ui-controls-mode 1))
 
 
 (use-package projectile
@@ -145,6 +186,27 @@
 
 (use-package flycheck
   :ensure t)
+
+
+(use-package magit
+  :ensure t)
+
+
+(use-package avy
+  :ensure t)
+
+
+(use-package beacon
+  :ensure t
+  :config (beacon-mode 1))
+
+
+(defun c++-mode-before-save-hook ()
+  (when (eq major-mode 'c++-mode)
+    (lsp-format-buffer)))
+
+
+(add-hook 'before-save-hook #'c++-mode-before-save-hook)
 
 
 (general-define-key
@@ -162,28 +224,48 @@
  
 
 (general-define-key
- :keymaps '(normal emacs)
+ :keymaps '(normal emacs visual)
  :prefix "SPC"
  "." 'find-file
  "f" 'counsel-projectile-find-file
  "p" 'counsel-projectile-switch-project
  "g" 'counsel-projectile-rg
- "b" 'counsel-buffer-or-recentf
+ "b" 'counsel-switch-buffer
  "x" 'execute-extended-command
  "i" 'find-user-init-file
  "h" '(nil :which-key "help")
- "t" 'treemacs)
+ "t" 'treemacs
+ "E" 'compile
+ "e" 'recompile
+ "m" 'magit
+ "SPC" 'avy-goto-char
+ "d" 'dap-hydra
+ "l" 'dap-debug-last
+ "L" 'dap-debug
+ "s" 'eshell)
 
 
 (general-define-key
  :keymaps '(normal emacs)
+ :prefix "SPC"
+ "c" 'comment-line)
+
+
+(general-define-key
+ :keymaps '(visual emacs)
+ :prefix "SPC"
+ "c" 'comment-or-uncomment-region)
+
+
+(general-define-key
+ :keymaps '(normal emacs visual)
  :prefix "SPC h"
  "k" 'describe-key
  "v" 'describe-variable)
 
 
 (general-define-key
- :states '(normal insert emacs)
+ :states '(normal insert emacs visual)
  "C-h" 'evil-window-left
  "C-j" 'evil-window-down
  "C-k" 'evil-window-up
@@ -191,7 +273,7 @@
 
 
 (general-define-key
- :keymaps '(normal emacs)
+ :keymaps '(normal emacs visual)
  :prefix "g"
  "d" 'lsp-ui-peek-find-definitions
  "r" 'lsp-ui-peek-find-references
@@ -200,14 +282,15 @@
  "b" 'evil-jump-backward)
 
 
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("3577ee091e1d318c49889574a31175970472f6f182a9789f1a3e9e4513641d86" "229c5cf9c9bd4012be621d271320036c69a14758f70e60385e87880b46d60780" "e074be1c799b509f52870ee596a5977b519f6d269455b84ed998666cf6fc802a" "bc836bf29eab22d7e5b4c142d201bcce351806b7c1f94955ccafab8ce5b20208" default))
  '(package-selected-packages
-   '(dap-gdb-lldb flycheck yasnippet all-the-icons company-box counsel-projectile projectile lsp-ivy company-lsp lsp-ui dap-mode lsp-mode sublimity exec-path-from-shell vterm which-key company swiper key-chord general nord-theme use-package evil)))
+   '(beacon magit ivy-posframe doom-modeline dap-lldb posframe flycheck yasnippet all-the-icons company-box counsel-projectile projectile lsp-ivy company-lsp lsp-ui dap-mode lsp-mode sublimity exec-path-from-shell vterm which-key company swiper key-chord general use-package evil)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

@@ -36,7 +36,12 @@ set ruler
 set complete-=i
 
 set termguicolors
-set guicursor
+
+let &t_SI .= "\e[6 q"
+let &t_EI .= "\e[2 q"
+inoremap <special> <Esc> <Esc>hl
+vnoremap <special> <Esc> <Esc>hl
+
 set background=dark
 colorscheme gruvbox-material
 

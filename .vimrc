@@ -22,7 +22,21 @@ set noshowmode
 syntax enable
 filetype plugin indent on
 
+set autoindent
+set smarttab
+set backspace=indent,eol,start
+
+set ttyfast
+
+set incsearch
+set hlsearch
+
+set ruler
+
+set complete-=i
+
 set termguicolors
+set guicursor
 set background=dark
 colorscheme gruvbox-material
 
@@ -30,7 +44,7 @@ let g:lightline = {
       \ 'colorscheme': 'gruvbox_material',
       \ }
 
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 set hidden
 
@@ -78,9 +92,13 @@ endif
 
 noremap ; :
 noremap <c-h> <c-w>h
+inoremap <c-h> <esc><c-w>h
 noremap <c-j> <c-w>j
+inoremap <c-j> <esc><c-w>j
 noremap <c-k> <c-w>k
+inoremap <c-k> <esc><c-w>k
 noremap <c-l> <c-w>l
+inoremap <c-l> <esc><c-w>l
 inoremap jk <esc>
 
 nnoremap <silent> gb <c-o>
@@ -120,4 +138,11 @@ nmap <silent> <localleader>c <Plug>VimspectorToggleConditionalBreakpoint
 nmap <silent> <localleader>n <Plug>VimspectorStepOver
 nmap <silent> <localleader>i <Plug>VimspectorStepInto
 nmap <silent> <localleader>o <Plug>VimspectorStepOut
-
+nmap <silent> <localleader>sc :VimspectorShowOutput Console<cr>
+nmap <silent> <localleader>st :VimspectorShowOutput Telemetry<cr>
+nmap <silent> <localleader>se :VimspectorShowOutput stderr<cr>
+nmap <silent> <localleader>ss :VimspectorShowOutput server<cr>
+nmap <silent> <localleader>so :VimspectorShowOutput Vimspector-out<cr>
+nmap <silent> <localleader>sv :VimspectorShowOutput Vimspector-err<cr>
+nmap <localleader>e :VimspectorEval 
+nmap <localleader>w :VimspectorWatch 

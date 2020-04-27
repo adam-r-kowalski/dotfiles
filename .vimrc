@@ -1,7 +1,5 @@
 call plug#begin('~/.vim/plugged/')
 Plug 'arcticicestudio/nord-vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 call plug#end()
 
 syntax enable
@@ -43,3 +41,4 @@ tnoremap jk <C-\><C-n>
 nnoremap <leader>f :GFiles<cr> 
 nnoremap <leader>F :Files<cr> 
 nnoremap <leader>g :Rg<cr> 
+nnoremap <leader>b :Buffers<cr> 

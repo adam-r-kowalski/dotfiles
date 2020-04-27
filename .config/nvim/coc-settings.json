@@ -1,3 +1,4 @@
 {
-	"coc.preferences.formatOnSaveFiletypes": ["cpp"]
+    "coc.preferences.formatOnSaveFiletypes": ["cpp"],
+    "python.jediEnabled": false
 }

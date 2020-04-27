@@ -14,29 +14,56 @@ Plug 'voldikss/coc-cmake', {'do': 'yarn install --frozen-lockfile'}
 Plug 'puremourning/vimspector'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ryanoasis/vim-devicons'
+Plug 'tpope/vim-abolish'
+Plug 'justinmk/vim-sneak'
+Plug 'liuchengxu/vim-which-key'
 call plug#end()
 
-set noshowmode
-
 syntax enable
-filetype plugin indent on
+set termguicolors
+set background=dark
+colorscheme gruvbox-material
+
+set hidden
+set nowrap
+
+set number
+set relativenumber
+set noshowmode
+set laststatus=2
+
+set hlsearch
+set incsearch
+
+set nobackup
+set nowritebackup
+set noswapfile
 
 autocmd FileType cpp setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType json setlocal expandtab shiftwidth=4 softtabstop=4
 
-set autoindent
-set smarttab
+set tabstop=4
+set shiftwidth=4
+set shiftround
 
-set incsearch
-set hlsearch
+let mapleader = "\<space>"
+let maplocalleader = ","
 
-set ruler
+filetype plugin indent on
 
-set termguicolors
+set mouse=a
 
-set background=dark
-colorscheme gruvbox-material
+set clipboard=unnamed
+
+set signcolumn=yes
+
+set updatetime=300
+
+set shortmess+=c
+
+set splitbelow
+set splitright
 
 function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
@@ -54,28 +81,10 @@ let g:lightline = {
       \ },
       \ }
 
-set clipboard=unnamed
 
-set hidden
 
-set mouse=a
-
-set nobackup
-set nowritebackup
-
-set updatetime=300
-
-set shortmess+=c
-
-set signcolumn=yes
-
-set number
-set relativenumber
 
 let g:cpp_concepts_highlight = 1
-
-let mapleader = "\<space>"
-let maplocalleader = ","
 
 let g:python3_host_prog = '~/miniconda3/bin/python'
 
@@ -115,8 +124,6 @@ sign define vimspectorBPCond text=⭕     texthl=Normal
 sign define vimspectorBPDisabled text=🔵 texthl=Normal
 sign define vimspectorPC text=🔶         texthl=Normal
 
-tnoremap <Esc> <C-\><C-n>
-
 nnoremap <leader>rn <Plug>(coc-rename)
 nnoremap <silent> <leader>o :<c-u>CocList outline<cr>
 nnoremap <silent> <leader>s :<c-u>CocList -I symbols<cr>
@@ -140,6 +147,9 @@ nmap <silent> <localleader>so :VimspectorShowOutput Vimspector-out<cr>
 nmap <silent> <localleader>sv :VimspectorShowOutput Vimspector-err<cr>
 nmap <localleader>e :VimspectorEval 
 nmap <localleader>w :VimspectorWatch 
+nnoremap <localleader>gd :Gvdiffsplit!<cr>
+nnoremap <localleader>gl :diffget //2<cr>
+nnoremap <localleader>gm :diffget //3<cr>
 
 noremap ; :
 noremap <c-h> <c-w>h
@@ -151,11 +161,24 @@ inoremap <c-k> <esc><c-w>k
 noremap <c-l> <c-w>l
 inoremap <c-l> <esc><c-w>l
 inoremap jk <esc>
+tnoremap <Esc> <C-\><C-n>
+tnoremap jk <C-\><C-n>
 
 nnoremap <silent> gb <c-o>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> gh :call <SID>show_documentation()<CR>
+nnoremap <silent> gs :<C-u>CocCommand clangd.switchSourceHeader<cr>
+nnoremap <silent> gh :call <SID>show_documentation()<cr>
 
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+let g:sneak#s_next = 1
+
+nnoremap <silent> <leader> :<c-u>WhichKey '<space>'<cr>
+nnoremap <silent> <localleader> :<c-u>WhichKey ','<cr>
+nnoremap <silent> g :<c-u>WhichKey 'g'<cr>
+set timeoutlen=300

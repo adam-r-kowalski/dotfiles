@@ -95,3 +95,6 @@ nmap <localleader>i <Plug>VimspectorStepInto
 nmap <localleader>o <Plug>VimspectorStepOut
 nmap <localleader>c <Plug>VimspectorToggleConditionalBreakpoint
 nmap <localleader>t <Plug>VimspectorToggleBreakpoint
+nmap [ <Plug>VimspectorStepOver
+nmap ] <Plug>VimspectorStepInto
+nmap \ <Plug>VimspectorStepOut

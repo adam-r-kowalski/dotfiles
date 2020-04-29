@@ -3,13 +3,14 @@ Plug 'sainnhe/gruvbox-material'
 Plug 'vim-test/vim-test'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --all' }
+Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --all' }
 Plug 'puremourning/vimspector', { 'do': 'python install_gadget.py --all --disable-tcl' }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/nerdtree'
+Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()
 
 syntax enable
@@ -42,6 +43,8 @@ let test#python#pytest#options = '-p no:warnings'
 
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_confirm_extra_conf = 0
+
+let g:cpp_concepts_highlight = 1
 
 autocmd Filetype cpp setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType cpp let b:dispatch = 'cd build && conan build ..'

@@ -11,6 +11,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/nerdtree'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'itchyny/lightline.vim'
 call plug#end()
 
 syntax enable
@@ -31,6 +32,7 @@ set splitbelow splitright
 
 set noshowmode
 set signcolumn=yes
+set laststatus=2
 
 set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
@@ -45,6 +47,10 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_confirm_extra_conf = 0
 
 let g:cpp_concepts_highlight = 1
+
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox_material',
+      \ }
 
 autocmd Filetype cpp setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType cpp let b:dispatch = 'cd build && conan build ..'
@@ -78,6 +84,7 @@ nnoremap <leader>v :vsplit $MYVIMRC<cr>
 nnoremap <leader>s :source $MYVIMRC<cr>
 nnoremap <leader>qc :cclose<cr>
 nnoremap <leader>e :NERDTreeToggle<CR>
+nnoremap <leader>E :NERDTreeFind<CR>
 nnoremap gd :YcmCompleter GoToDefinition<cr>
 nnoremap gi :YcmCompleter GoToInclude<cr>
 nnoremap gl :YcmCompleter GoToDeclaration<cr>

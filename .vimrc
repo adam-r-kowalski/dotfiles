@@ -52,6 +52,8 @@ let g:lightline = {
       \ 'colorscheme': 'gruvbox_material',
       \ }
 
+let g:fzf_preview_window = ''
+
 autocmd Filetype cpp setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType cpp let b:dispatch = 'cd build && conan build ..'
 autocmd FileType cpp

@@ -1,5 +1,5 @@
 call plug#begin('~/.vim/plugged/')
-Plug 'sainnhe/gruvbox-material'
+Plug 'arcticicestudio/nord-vim'
 Plug 'vim-test/vim-test'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -17,8 +17,7 @@ call plug#end()
 syntax enable
 set termguicolors
 set background=dark
-colorscheme gruvbox-material
-hi Comment guifg=#928374 guibg=NONE guisp=NONE gui=italic cterm=NONE
+colorscheme nord
 
 set number relativenumber
 
@@ -49,7 +48,7 @@ let g:ycm_confirm_extra_conf = 0
 let g:cpp_concepts_highlight = 1
 
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox_material',
+      \ 'colorscheme': 'nord',
       \ }
 
 let g:fzf_preview_window = ''

@@ -42,12 +42,9 @@
   :ensure t)
 
 
-(use-package doom-themes
+(use-package nord-theme
   :ensure t
-  :init
-  (setq doom-themes-enable-bold t
-	doom-themes-enable-italic t)
-  :config (load-theme 'doom-one t))
+  :config (load-theme 'nord))
 
 
 (use-package doom-modeline
@@ -205,7 +202,7 @@
  '(ansi-color-names-vector
    ["#222222" "#fc618d" "#7bd88f" "#fce566" "#5ad4e6" "#5ad4e6" "#5ad4e6" "#f7f1ff"])
  '(custom-safe-themes
-   '("7c4cfa4eb784539d6e09ecc118428cd8125d6aa3053d8e8413f31a7293d43169" "d71aabbbd692b54b6263bfe016607f93553ea214bc1435d17de98894a5c3a086" "d74c5485d42ca4b7f3092e50db687600d0e16006d8fa335c69cf4f379dbd0eee" "24132f7b6699c6e0118d742351b74141bac3c4388937e40db9207554eaae78c9" "8a0c35b74b0407ca465dd8db28c9136d5f539868d4867565ee214ac85ceb0d3a" "58c3313b4811ed8b30239b1d04816f74d438bcb72626d68181f294b115b7220d" "d5f8099d98174116cba9912fe2a0c3196a7cd405d12fa6b9375c55fc510988b5" "f2b56244ecc6f4b952b2bcb1d7e517f1f4272876a8c873b378f5cf68e904bd59" "f9cae16fd084c64bf0a9de797ef9caedc9ff4d463dd0288c30a3f89ecf36ca7e" "e964832f274625fa45810c688bdbe18caa75a5e1c36b0ca5ab88924756e5667f" "1ed5c8b7478d505a358f578c00b58b430dde379b856fbcb60ed8d345fc95594e" "e074be1c799b509f52870ee596a5977b519f6d269455b84ed998666cf6fc802a" "fa3bdd59ea708164e7821574822ab82a3c51e262d419df941f26d64d015c90ee" "845103fcb9b091b0958171653a4413ccfad35552bc39697d448941bcbe5a660d" "76bfa9318742342233d8b0b42e824130b3a50dcc732866ff8e47366aed69de11" "bc836bf29eab22d7e5b4c142d201bcce351806b7c1f94955ccafab8ce5b20208" default))
+   '("7f6d4aebcc44c264a64e714c3d9d1e903284305fd7e319e7cb73345a9994f5ef" "7c4cfa4eb784539d6e09ecc118428cd8125d6aa3053d8e8413f31a7293d43169" "d71aabbbd692b54b6263bfe016607f93553ea214bc1435d17de98894a5c3a086" "d74c5485d42ca4b7f3092e50db687600d0e16006d8fa335c69cf4f379dbd0eee" "24132f7b6699c6e0118d742351b74141bac3c4388937e40db9207554eaae78c9" "8a0c35b74b0407ca465dd8db28c9136d5f539868d4867565ee214ac85ceb0d3a" "58c3313b4811ed8b30239b1d04816f74d438bcb72626d68181f294b115b7220d" "d5f8099d98174116cba9912fe2a0c3196a7cd405d12fa6b9375c55fc510988b5" "f2b56244ecc6f4b952b2bcb1d7e517f1f4272876a8c873b378f5cf68e904bd59" "f9cae16fd084c64bf0a9de797ef9caedc9ff4d463dd0288c30a3f89ecf36ca7e" "e964832f274625fa45810c688bdbe18caa75a5e1c36b0ca5ab88924756e5667f" "1ed5c8b7478d505a358f578c00b58b430dde379b856fbcb60ed8d345fc95594e" "e074be1c799b509f52870ee596a5977b519f6d269455b84ed998666cf6fc802a" "fa3bdd59ea708164e7821574822ab82a3c51e262d419df941f26d64d015c90ee" "845103fcb9b091b0958171653a4413ccfad35552bc39697d448941bcbe5a660d" "76bfa9318742342233d8b0b42e824130b3a50dcc732866ff8e47366aed69de11" "bc836bf29eab22d7e5b4c142d201bcce351806b7c1f94955ccafab8ce5b20208" default))
  '(fci-rule-color "#585858")
  '(jdee-db-active-breakpoint-face-colors (cons "#131313" "#fce566"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#131313" "#7bd88f"))
@@ -213,7 +210,7 @@
  '(modern-c++-font-lock-global-mode t)
  '(objed-cursor-color "#fc618d")
  '(package-selected-packages
-   '(evil-magit magit flycheck key-chord modern-cpp-font-lock lsp-ivy lsp-ui lsp-mode counsel-projectile general which-key ivy use-package exec-path-from-shell evil doom-themes doom-modeline dashboard company))
+   '(nord-theme nord evil-magit magit flycheck key-chord modern-cpp-font-lock lsp-ivy lsp-ui lsp-mode counsel-projectile general which-key ivy use-package exec-path-from-shell evil doom-themes doom-modeline dashboard company))
  '(pdf-view-midnight-colors (cons "#f7f1ff" "#222222"))
  '(rustic-ansi-faces
    ["#222222" "#fc618d" "#7bd88f" "#fce566" "#5ad4e6" "#5ad4e6" "#5ad4e6" "#f7f1ff"])

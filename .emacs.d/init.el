@@ -163,6 +163,10 @@
   :ensure t)
 
 
+(use-package avy
+  :ensure t)
+
+
 (defun find-user-init-file ()
   (interactive)
   (find-file user-init-file))
@@ -174,8 +178,10 @@
                  (format "cd %s/build && conan build .." (projectile-project-root)))))
 
 
-(general-swap-key nil 'motion
-  ";" ":")
+(general-define-key
+ :states 'motion
+ ";" 'evil-ex
+ ":" 'avy-goto-char)
 
 
 (general-define-key :keymaps 'evil-insert-state-map

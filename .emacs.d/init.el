@@ -42,31 +42,22 @@
   :ensure t)
 
 
+(use-package doom-themes
+  :ensure t
+  :init
+  (setq doom-themes-enable-bold t
+	doom-themes-enable-italic t
+	doom-themes-treemacs-theme "doom-colors")
+  :config
+  (load-theme 'doom-one t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
+
+
 (use-package doom-modeline
   :ensure t
   :config (doom-modeline-mode 1))
-
-
-(use-package nord-theme
-  :ensure t
-  :config
-  (defvar my:theme 'nord)
-  (defvar my:theme-window-loaded nil)
-  (defvar my:theme-terminal-loaded nil)
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-		(lambda (frame)
-		  (select-frame frame)
-		  (if (window-system frame)
-		      (unless my:theme-window-loaded
-			(if my:theme-terminal-loaded (enable-theme my:theme) (load-theme my:theme t))
-			(setq my:theme-window-loaded t))
-		      (unless my:theme-terminal-loaded
-			(if my:theme-window-loaded (enable-theme my:theme) (load-theme my:theme t))
-			(setq my:theme-terminal-loaded t)))))
-    (progn
-      (load-theme my:theme t)
-      (if (display-graphic-p) (setq my:theme-window-loaded t) (setq my:theme-terminal-loaded t)))))
 
 
 (use-package evil
@@ -80,8 +71,12 @@
   :init
   (setq company-minimum-prefix-length 1
 	company-idle-delay 0.0
-	company-backends '(company-capf company-cmake company-files))
+	company-backends '(company-capf company-files))
   :config (global-company-mode 1))
+
+
+(use-package company-capf
+  :ensure t)
 
 
 (use-package exec-path-from-shell
@@ -131,6 +126,10 @@
 (use-package lsp-ivy
   :ensure t
   :commands lsp-ivy-workspace-symbol)
+
+
+(use-package lsp-treemacs
+  :ensure t)
 
 
 (use-package modern-cpp-font-lock
@@ -243,7 +242,7 @@
  :prefix "g"
  "d" 'lsp-ui-peek-find-definitions
  "r" 'lsp-ui-peek-find-references
- "s" 'lsp-ui-peek-find-workspace-symbol
+ "s" 'lsp-ivy-global-workspace-symbol
  "b" 'evil-jump-backward)
 
 
@@ -305,7 +304,7 @@
  '(custom-safe-themes
    '("7f6d4aebcc44c264a64e714c3d9d1e903284305fd7e319e7cb73345a9994f5ef" default))
  '(package-selected-packages
-   '(treemacs-evil auto-package-update cmake-mode posframe dap-mode spinner evil-magit magit flycheck key-chord modern-cpp-font-lock lsp-ivy lsp-ui lsp-mode which-key general counsel-projectile projectile ivy exec-path-from-shell company evil nord-theme doom-modeline all-the-icons use-package)))
+   '(doom-themes damage-doom-themes treemacs-evil auto-package-update cmake-mode posframe dap-mode spinner evil-magit magit flycheck key-chord modern-cpp-font-lock lsp-ivy lsp-ui lsp-mode which-key general counsel-projectile projectile ivy exec-path-from-shell company evil doom-modeline all-the-icons use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

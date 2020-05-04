@@ -1,5 +1,5 @@
 call plug#begin('~/.vim/plugged/')
-Plug 'arcticicestudio/nord-vim'
+Plug 'challenger-deep-theme/vim'
 Plug 'vim-test/vim-test'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -17,7 +17,7 @@ call plug#end()
 syntax enable
 set termguicolors
 set background=dark
-colorscheme nord
+colorscheme challenger_deep
 
 set number relativenumber
 
@@ -48,7 +48,7 @@ let g:ycm_confirm_extra_conf = 0
 let g:cpp_concepts_highlight = 1
 
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'challenger_deep',
       \ }
 
 let g:fzf_preview_window = ''

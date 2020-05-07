@@ -29,10 +29,11 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (global-display-line-numbers-mode)
+(display-time-mode)
 
 
 (set-face-attribute 'default nil
-                    :family "MesloLGS NF"
+                    :family "SauceCodePro Nerd Font Mono"
                     :height 160
                     :weight 'normal
                     :width 'normal)
@@ -57,12 +58,22 @@
 
 (use-package doom-modeline
   :ensure t
-  :config (doom-modeline-mode 1))
+  :init
+  (setq doom-modeline-icon (display-graphic-p)
+	doom-modeline-buffer-file-name-style 'truncate-with-project
+	doom-modeline-buffer-encoding nil
+	doom-modeline-lsp nil
+	doom-modeline-minor-modes nil)
+  :config
+  (display-battery-mode)
+  (doom-modeline-mode 1))
 
 
 (use-package evil
   :ensure t
-  :init (setq evil-want-C-u-scroll t)
+  :init
+  (setq evil-want-C-u-scroll t
+	evil-echo-state nil)
   :config (evil-mode 1))
 
 
@@ -111,7 +122,8 @@
   :ensure t
   :hook ((c++-mode . lsp-deferred))
   :commands (lsp lsp-deferred)
-  :init (setq lsp-prefer-capf t))
+  :init (setq lsp-prefer-capf t
+	      lsp-semantic-highlighting 'immediate))
 
 
 (use-package lsp-ui
@@ -128,9 +140,11 @@
   :ensure t)
 
 
-(use-package modern-cpp-font-lock
+(use-package lsp-python-ms
   :ensure t
-  :hook ((c++-mode . modern-c++-font-lock-mode)))
+  :hook (python-mode . (lambda ()
+			 (require 'lsp-python-ms)
+			 (lsp))))
 
 
 (use-package key-chord
@@ -160,6 +174,27 @@
 
 (use-package avy
   :ensure t)
+
+
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable)
+  (setq elpy-test-runner 'elpy-test-pytest-runner
+	elpy-test-pytest-runner-command '("python" "-m" "pytest" "-p" "no:warnings" "-s")
+	elpy-rpc-virtualenv-path 'current)
+  :config
+  (flymake-mode)
+  (remove-hook 'elpy-modules 'elpy-module-flymake))
+
+
+(defun elpy-goto-definition-or-rgrep ()
+    (interactive)
+    (ring-insert find-tag-marker-ring (point-marker))
+    (condition-case nil (elpy-goto-definition)
+        (error (elpy-rgrep-symbol
+                   (concat "\\(def\\|class\\)\s" (thing-at-point 'symbol) "(")))))
 
 
 (defun find-user-init-file ()
@@ -194,7 +229,7 @@
  "f" 'counsel-projectile-find-file
  "g" 'counsel-projectile-rg
  "i" 'find-user-init-file
- "t" 'treemacs
+ "e" 'treemacs
  "d" 'recompile
  "D" 'compile
  "m" 'magit
@@ -224,6 +259,13 @@
 
 
 (general-define-key
+ :states '(normal visual emacs)
+ :keymaps '(python-mode-map override)
+ :prefix ","
+ "t" 'elpy-test)
+
+
+(general-define-key
  :states '(normal visual insert emacs)
  :keymaps 'override
  "C-h" 'evil-window-left
@@ -237,6 +279,7 @@
  :keymaps 'override
  :prefix "g"
  "d" 'lsp-ui-peek-find-definitions
+ "D" 'elpy-goto-definition-or-rgrep
  "r" 'lsp-ui-peek-find-references
  "s" 'lsp-ivy-global-workspace-symbol
  "b" 'evil-jump-backward)
@@ -249,6 +292,7 @@
 (use-package dap-mode
   :ensure t
   :config
+  (require 'dap-python)
   (dap-mode 1)
   (dap-ui-mode 1)
   (dap-tooltip-mode 1)
@@ -281,15 +325,32 @@
    conf))
 
 
-(dap-register-debug-template "C++ Run Configuration"
-                             (list :type "cppdbg"
-                                   :cwd "/Users/adamkowalski/code/omega/build/bin"
-                                   :request "launch"
-                                   :program "/Users/adamkowalski/code/omega/build/bin/test_omega"
-				   :externalTerminal :json-false
-				   :MIMode "lldb"
-				   :name "Debug Test"))
+(dap-register-debug-template
+ "C++ Debug Test"
+ (list :type "cppdbg"
+       :cwd "/Users/adamkowalski/code/omega/build/bin"
+       :request "launch"
+       :program "/Users/adamkowalski/code/omega/build/bin/test_omega"
+       :externalTerminal :json-false
+       :MIMode "lldb"
+       :name "Debug Test"))
 
+
+(dap-register-debug-template
+ "Python Debug Test"
+ (list :type "python"
+       :args ""
+       :cwd "/Users/adamkowalski/code/mount_hood/"
+       :program nil
+       :module "pytest"
+       :request "launch"
+       :name "Debug Test"))
+
+
+(defun debug-test-at-point ()
+  (interactive)
+  (let ((symbols (lsp--get-document-symbols)))
+    (print symbols)))
 
 
 (custom-set-variables
@@ -300,14 +361,14 @@
  '(ansi-color-names-vector
    ["#5a5475" "#CC6666" "#C2FFDF" "#FFEA00" "#55b3cc" "#FFB8D1" "#96CBFE" "#F8F8F0"])
  '(custom-safe-themes
-   '("7d708f0168f54b90fc91692811263c995bebb9f68b8b7525d0e2200da9bc903c" "fa3bdd59ea708164e7821574822ab82a3c51e262d419df941f26d64d015c90ee" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "d5f8099d98174116cba9912fe2a0c3196a7cd405d12fa6b9375c55fc510988b5" "7f791f743870983b9bb90c8285e1e0ba1bf1ea6e9c9a02c60335899ba20f3c94" "e074be1c799b509f52870ee596a5977b519f6d269455b84ed998666cf6fc802a" "e964832f274625fa45810c688bdbe18caa75a5e1c36b0ca5ab88924756e5667f" "c83c095dd01cde64b631fb0fe5980587deec3834dc55144a6e78ff91ebc80b19" "1ed5c8b7478d505a358f578c00b58b430dde379b856fbcb60ed8d345fc95594e" "6231254e74298a1cf8a5fee7ca64352943de4b495e615c449e9bb27e2ccae709" "56911bd75304fdb19619c9cb4c7b0511214d93f18e566e5b954416756a20cc80" "4e764943cc022ba136b80fa82d7cdd6b13a25023da27528a59ac61b0c4f1d16f" "6bacece4cf10ea7dd5eae5bfc1019888f0cb62059ff905f37b33eec145a6a430" "24132f7b6699c6e0118d742351b74141bac3c4388937e40db9207554eaae78c9" "1526aeed166165811eefd9a6f9176061ec3d121ba39500af2048073bea80911e" "76bfa9318742342233d8b0b42e824130b3a50dcc732866ff8e47366aed69de11" "d71aabbbd692b54b6263bfe016607f93553ea214bc1435d17de98894a5c3a086" "3577ee091e1d318c49889574a31175970472f6f182a9789f1a3e9e4513641d86" "9b01a258b57067426cc3c8155330b0381ae0d8dd41d5345b5eddac69f40d409b" "8a0c35b74b0407ca465dd8db28c9136d5f539868d4867565ee214ac85ceb0d3a" "bc836bf29eab22d7e5b4c142d201bcce351806b7c1f94955ccafab8ce5b20208" "7f6d4aebcc44c264a64e714c3d9d1e903284305fd7e319e7cb73345a9994f5ef" default))
+   '("99ea831ca79a916f1bd789de366b639d09811501e8c092c85b2cb7d697777f93" "7d708f0168f54b90fc91692811263c995bebb9f68b8b7525d0e2200da9bc903c" "fa3bdd59ea708164e7821574822ab82a3c51e262d419df941f26d64d015c90ee" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "d5f8099d98174116cba9912fe2a0c3196a7cd405d12fa6b9375c55fc510988b5" "7f791f743870983b9bb90c8285e1e0ba1bf1ea6e9c9a02c60335899ba20f3c94" "e074be1c799b509f52870ee596a5977b519f6d269455b84ed998666cf6fc802a" "e964832f274625fa45810c688bdbe18caa75a5e1c36b0ca5ab88924756e5667f" "c83c095dd01cde64b631fb0fe5980587deec3834dc55144a6e78ff91ebc80b19" "1ed5c8b7478d505a358f578c00b58b430dde379b856fbcb60ed8d345fc95594e" "6231254e74298a1cf8a5fee7ca64352943de4b495e615c449e9bb27e2ccae709" "56911bd75304fdb19619c9cb4c7b0511214d93f18e566e5b954416756a20cc80" "4e764943cc022ba136b80fa82d7cdd6b13a25023da27528a59ac61b0c4f1d16f" "6bacece4cf10ea7dd5eae5bfc1019888f0cb62059ff905f37b33eec145a6a430" "24132f7b6699c6e0118d742351b74141bac3c4388937e40db9207554eaae78c9" "1526aeed166165811eefd9a6f9176061ec3d121ba39500af2048073bea80911e" "76bfa9318742342233d8b0b42e824130b3a50dcc732866ff8e47366aed69de11" "d71aabbbd692b54b6263bfe016607f93553ea214bc1435d17de98894a5c3a086" "3577ee091e1d318c49889574a31175970472f6f182a9789f1a3e9e4513641d86" "9b01a258b57067426cc3c8155330b0381ae0d8dd41d5345b5eddac69f40d409b" "8a0c35b74b0407ca465dd8db28c9136d5f539868d4867565ee214ac85ceb0d3a" "bc836bf29eab22d7e5b4c142d201bcce351806b7c1f94955ccafab8ce5b20208" "7f6d4aebcc44c264a64e714c3d9d1e903284305fd7e319e7cb73345a9994f5ef" default))
  '(fci-rule-color "#B8A2CE")
  '(jdee-db-active-breakpoint-face-colors (cons "#464258" "#C5A3FF"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#464258" "#C2FFDF"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#464258" "#656565"))
  '(objed-cursor-color "#CC6666")
  '(package-selected-packages
-   '(doom-themes damage-doom-themes treemacs-evil auto-package-update cmake-mode posframe dap-mode spinner evil-magit magit flycheck key-chord modern-cpp-font-lock lsp-ivy lsp-ui lsp-mode which-key general counsel-projectile projectile ivy exec-path-from-shell company evil doom-modeline all-the-icons use-package))
+   '(dap-python elpy doom-themes damage-doom-themes treemacs-evil auto-package-update cmake-mode posframe dap-mode spinner evil-magit magit flycheck key-chord lsp-ivy lsp-ui lsp-mode which-key general counsel-projectile projectile ivy exec-path-from-shell company evil doom-modeline all-the-icons use-package))
  '(pdf-view-midnight-colors (cons "#F8F8F0" "#5a5475"))
  '(rustic-ansi-faces
    ["#5a5475" "#CC6666" "#C2FFDF" "#FFEA00" "#55b3cc" "#FFB8D1" "#96CBFE" "#F8F8F0"])

@@ -38,13 +38,13 @@
   autoload -Uz is-at-least && is-at-least 5.1 || return
 
   # Prompt colors.
-  local grey='#ebdbb2'
-  local red='#fb4934'
-  local yellow='#fabd2f'
-  local blue='#268bd2'
-  local magenta='#fb2874'
-  local cyan='#83a598'
-  local white='#ebdbb2'
+  local grey='#d8dee8'
+  local red='#bf6069'
+  local yellow='#eacb8a'
+  local blue='#81a1c1'
+  local magenta='#b48dac'
+  local cyan='#88c0d0'
+  local white='#e5e9f0'
 
   # Left prompt segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(

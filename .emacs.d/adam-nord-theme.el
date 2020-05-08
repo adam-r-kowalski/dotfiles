@@ -29,7 +29,7 @@ determine the exact padding."
   :type '(choice integer boolean))
 
 (eval-and-compile
-  (defcustom adam-nord-region-highlight 'frost
+  (defcustom adam-nord-region-highlight t
     "Determines the selection highlight style. Can be 'frost, 'snowstorm or t
 (default)."
     :group 'adam-nord-theme
@@ -41,7 +41,7 @@ determine the exact padding."
 
   ;; name        default   256       16
   ((bg         '("#2e3340" nil       nil            ))
-   (bg-alt     '("#2e3340" nil       nil            ))
+   (bg-alt     '("#4c556a" nil       nil            ))
    (base0      '("#3b4251" "3b4251"   "black"        ))
    (base1      '("#3b4251" "#3b4251" "brightblack"  ))
    (base2      '("#3b4251" "#3b4251" "brightblack"  ))
@@ -81,7 +81,7 @@ determine the exact padding."
    (operators      blue)
    (type           cyan)
    (strings        green)
-   (variables      cyan)
+   (variables      fg)
    (numbers        yellow)
    (region         (pcase adam-nord-region-highlight
                      (`frost cyan)

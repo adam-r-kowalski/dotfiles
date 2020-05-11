@@ -592,7 +592,7 @@
     symbols-before-point-with-class)
 
 
-(nearest-test symbols-before-point-with-class)
+(== (nearest-test symbols-before-point-with-class) "::TestClass::test_foo")
 
 
 (setq document-symbols
@@ -623,4 +623,4 @@
     symbols-before-point)
 
 
-(nearest-test symbols-before-point)
+(== (nearest-test symbols-before-point) "::test_foo")

@@ -395,6 +395,42 @@
        :name "Debug Test"))
 
 
+(defun dap-python--test-at-point (conf)
+  "Populate CONF with the required arguments."
+  (let* ((host "localhost")
+         (debug-port (dap--find-available-port))
+         (python-executable (dap-python--pyenv-executable-find dap-python-executable))
+         (python-args (or (plist-get conf :args) ""))
+         (program (concat (buffer-file-name) (test-at-point)))
+         (module (plist-get conf :module)))
+
+    (plist-put conf :program-to-start
+               (format "%s%s -m ptvsd --wait --host %s --port %s %s %s %s"
+                       (or dap-python-terminal "")
+                       (shell-quote-argument python-executable)
+                       host
+                       debug-port
+                       (if module (concat "-m " (shell-quote-argument module)) "")
+                       (shell-quote-argument program)
+                       python-args))
+    (plist-put conf :program program)
+    (plist-put conf :debugServer debug-port)
+    (plist-put conf :port debug-port)
+    (plist-put conf :hostName host)
+    (plist-put conf :host host)
+    conf))
+
+(dap-register-debug-provider "python-test-at-point" 'dap-python--test-at-point)
+
+
+(dap-register-debug-template
+ "Python Debug Test At Point"
+ (list :type "python-test-at-point"
+       :args ""
+       :module "pytest"
+       :request "launch"
+       :name "Python Debug Test At Point"))
+
 
 (use-package dash
   :ensure t)
@@ -424,6 +460,10 @@
   (:documentation "Check if lhs and rhs are equal"))
 
 
+(cl-defmethod == ((lhs symbol) (rhs symbol))
+  (eq lhs rhs))
+
+
 (cl-defmethod == ((lhs integer) (rhs integer))
   (eq lhs rhs))
   
@@ -433,7 +473,7 @@
 
 
 (cl-defmethod == ((lhs list) (rhs list))
-  (-reduce (lambda (lhs rhs) (and lhs rhs)) (-zip-with '== lhs rhs)))
+  (-reduce (lambda (x y) (and x y)) (-zip-with '== lhs rhs)))
 
 
 (cl-defmethod == ((lhs point) (rhs point))
@@ -466,7 +506,7 @@
 				 :character (gethash "character" end))))))
 
 
-(defun lsp-symbol-before-point (lsp-symbol point)
+(defun lsp-symbol-before-point (point lsp-symbol)
   (let ((lsp-symbol-line (-> lsp-symbol
 			     lsp-symbol-location
 			     location-start
@@ -474,9 +514,35 @@
     (< lsp-symbol-line (point-line point))))
 
 
-(defun lsp-symbols-before-point (lsp-symbols point)
-  (-filter '(lambda (symbol) (lsp-symbol-before-point symbol point))
-	   lsp-symbols))
+(defun lsp-symbols-before-point (point lsp-symbols)
+  (-filter (-partial 'lsp-symbol-before-point point) lsp-symbols))
+
+
+(defun test-p (lsp-symbol)
+  (let ((name (lsp-symbol-name lsp-symbol)))
+    (and (== (lsp-symbol-type lsp-symbol) "Function")
+	 (>= (length name) 5)
+	 (== (substring name 0 5) "test_"))))
+
+
+(defun test-class-p (test-symbol lsp-symbol)
+  (if (== (lsp-symbol-type lsp-symbol) "Class")
+      (let* ((class-location (lsp-symbol-location lsp-symbol))
+	     (class-start-line (-> class-location location-start point-line))
+	     (class-end-line (-> class-location location-end point-line))
+	     (test-start-line (-> test-symbol lsp-symbol-location location-start point-line)))
+	(and (> test-start-line class-start-line)
+	     (< test-start-line class-end-line)))
+	nil))
+
+
+(defun nearest-test (lsp-symbols)
+  (let* ((reversed (reverse lsp-symbols))
+	 (test-symbol (-first 'test-p reversed))
+	 (class-symbol (-first (-partial 'test-class-p test-symbol) reversed)))
+    (if (eq nil class-symbol)
+	(concat "::" (lsp-symbol-name test-symbol))
+        (concat "::" (lsp-symbol-name class-symbol) "::" (lsp-symbol-name test-symbol)))))
 
 
 (defun cursor-position ()
@@ -484,14 +550,53 @@
 	      :character (current-column)))
 
 
-(defun debug-test-at-point ()
+(defun test-at-point ()
+  (->> (lsp--get-document-symbols)
+       (mapcar 'parse-lsp-symbol)
+       (lsp-symbols-before-point (cursor-position))
+       nearest-test))
+
+
+(defun store-symbols-at-point ()
   (interactive)
-  (let ((symbols (lsp--get-document-symbols)))
-    (setq adam-current-symbols symbols)))
+  (setq document-symbols-at-point (lsp--get-document-symbols)))
+
+
+(setq document-symbols-with-class
+      (list
+       #s(lsp-symbol "dataclass" "Function" #s(location #s(point 0 0) #s(point 0 33)))
+       #s(lsp-symbol "Foo" "Class" #s(location #s(point 4 0) #s(point 6 0)))
+       #s(lsp-symbol "value" "Variable" #s(location #s(point 5 4) #s(point 5 14)))
+       #s(lsp-symbol "Bar" "Class" #s(location #s(point 9 0) #s(point 11 0)))
+       #s(lsp-symbol "value" "Variable" #s(location #s(point 10 4) #s(point 10 14)))
+       #s(lsp-symbol "TestClass" "Class" #s(location #s(point 13 0) #s(point 21 0)))
+       #s(lsp-symbol "test_foo" "Function" #s(location #s(point 14 4) #s(point 17 0)))
+       #s(lsp-symbol "foo" "Variable" #s(location #s(point 15 8) #s(point 15 24)))
+       #s(lsp-symbol "test_bar" "Function" #s(location #s(point 18 4) #s(point 21 0)))
+       #s(lsp-symbol "bar" "Variable" #s(location #s(point 19 8) #s(point 19 24)))))
+
+
+(setq symbols-before-point-with-class
+      (list 
+       #s(lsp-symbol "dataclass" "Function" #s(location #s(point 0 0) #s(point 0 33)))
+       #s(lsp-symbol "Foo" "Class" #s(location #s(point 4 0) #s(point 6 0)))
+       #s(lsp-symbol "value" "Variable" #s(location #s(point 5 4) #s(point 5 14)))
+       #s(lsp-symbol "Bar" "Class" #s(location #s(point 9 0) #s(point 11 0)))
+       #s(lsp-symbol "value" "Variable" #s(location #s(point 10 4) #s(point 10 14)))
+       #s(lsp-symbol "TestClass" "Class" #s(location #s(point 13 0) #s(point 21 0)))
+       #s(lsp-symbol "test_foo" "Function" #s(location #s(point 14 4) #s(point 17 0)))
+       #s(lsp-symbol "foo" "Variable" #s(location #s(point 15 8) #s(point 15 24)))))
+
+
+(== (lsp-symbols-before-point #s(point 15 4) document-symbols-with-class)
+    symbols-before-point-with-class)
+
+
+(nearest-test symbols-before-point-with-class)
 
 
 (setq document-symbols
-      (list 
+      (list
        #s(lsp-symbol "dataclass" "Function" #s(location #s(point 0 0) #s(point 0 33)))
        #s(lsp-symbol "Foo" "Class" #s(location #s(point 4 0) #s(point 6 0)))
        #s(lsp-symbol "value" "Variable" #s(location #s(point 5 4) #s(point 5 14)))
@@ -504,7 +609,7 @@
 
 
 (setq symbols-before-point
-      (list 
+      (list
        #s(lsp-symbol "dataclass" "Function" #s(location #s(point 0 0) #s(point 0 33)))
        #s(lsp-symbol "Foo" "Class" #s(location #s(point 4 0) #s(point 6 0)))
        #s(lsp-symbol "value" "Variable" #s(location #s(point 5 4) #s(point 5 14)))
@@ -514,10 +619,8 @@
        #s(lsp-symbol "foo" "Variable" #s(location #s(point 14 4) #s(point 14 20)))))
 
 
-(mapcar '(lambda (symbol) (print (parse-lsp-symbol symbol))) adam-current-symbols)
-
-
-
-(== (lsp-symbols-before-point document-symbols #s(point 15 4))
+(== (lsp-symbols-before-point #s(point 15 4) document-symbols)
     symbols-before-point)
 
+
+(nearest-test symbols-before-point)

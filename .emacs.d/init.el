@@ -112,7 +112,10 @@
 (use-package which-key :config (which-key-mode))
 
 
-(use-package treemacs :commands treemacs)
+(use-package treemacs
+  :init (setq treemacs-lock-width nil
+	      treemacs--width-is-locked nil)
+  :commands treemacs)
 
 
 (use-package lsp-mode
@@ -164,7 +167,6 @@
   :straight (dap-mode :type git :host github :repo "emacs-lsp/dap-mode"
                       :fork (:host github
                              :repo "adam-r-kowalski/dap-mode"))
-  :hook (dap-stopped . (lambda (&rest _) (call-interactively #'dap-hydra)))
   :init (setq dap-auto-show-output nil)
   :config
   (require 'dap-python)
@@ -173,6 +175,7 @@
   (dap-tooltip-mode 1)
   (tooltip-mode 1)
   (dap-ui-controls-mode 1))
+
 
 
 (dap-register-debug-provider
@@ -228,6 +231,9 @@
 (use-package cmake-mode)
 
 
+(use-package vterm)
+
+
 (defun find-user-init-file ()
   (interactive)
   (find-file user-init-file))
@@ -277,7 +283,7 @@
  "d" 'recompile
  "D" 'compile
  "m" 'magit
- "s" 'eshell
+ "s" 'vterm
  "T" 'switch-theme)
 
 
@@ -328,6 +334,11 @@
  "r" 'lsp-ui-peek-find-references
  "s" 'lsp-ivy-global-workspace-symbol
  "b" 'evil-jump-backward)
+
+
+
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

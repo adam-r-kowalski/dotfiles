@@ -164,6 +164,8 @@
   :straight (dap-mode :type git :host github :repo "emacs-lsp/dap-mode"
                       :fork (:host github
                              :repo "adam-r-kowalski/dap-mode"))
+  :hook (dap-stopped . (lambda (&rest _) (call-interactively #'dap-hydra)))
+  :init (setq dap-auto-show-output nil)
   :config
   (require 'dap-python)
   (dap-mode 1)
@@ -326,3 +328,48 @@
  "r" 'lsp-ui-peek-find-references
  "s" 'lsp-ivy-global-workspace-symbol
  "b" 'evil-jump-backward)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#2e3340" "#bf6069" "#a3be8b" "#eacb8a" "#81a1c1" "#b48dac" "#88c0d0" "#d8dee8"])
+ '(custom-safe-themes
+   '("8e845243c9bc1a8d77be2e0567cb89a450118689e831a802ab9013093f6efd1a" default))
+ '(fci-rule-color "#4c556a")
+ '(jdee-db-active-breakpoint-face-colors (cons "#3b4251" "#81a1c1"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#3b4251" "#a3be8b"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#3b4251" "#4c556a"))
+ '(objed-cursor-color "#bf6069")
+ '(pdf-view-midnight-colors (cons "#d8dee8" "#2e3340"))
+ '(rustic-ansi-faces
+   ["#2e3340" "#bf6069" "#a3be8b" "#eacb8a" "#81a1c1" "#b48dac" "#88c0d0" "#d8dee8"])
+ '(vc-annotate-background "#2e3340")
+ '(vc-annotate-color-map
+   (list
+    (cons 20 "#a3be8b")
+    (cons 40 "#bac28a")
+    (cons 60 "#d2c68a")
+    (cons 80 "#eacb8a")
+    (cons 100 "#dba77f")
+    (cons 120 "#cd8373")
+    (cons 140 "#bf6069")
+    (cons 160 "#bb6f7f")
+    (cons 180 "#b77e95")
+    (cons 200 "#b48dac")
+    (cons 220 "#b77e95")
+    (cons 240 "#bb6f7f")
+    (cons 260 "#bf6069")
+    (cons 280 "#a25d69")
+    (cons 300 "#855a69")
+    (cons 320 "#685769")
+    (cons 340 "#4c556a")
+    (cons 360 "#4c556a")))
+ '(vc-annotate-very-old-color nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

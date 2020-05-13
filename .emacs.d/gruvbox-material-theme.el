@@ -15,8 +15,7 @@
   :type 'boolean)
 
 (defcustom gruvbox-material-padded-modeline doom-themes-padded-modeline
-  "If non-nil, adds a 4px padding to the mode-line. Can be an integer to
-determine the exact padding."
+  "If non-nil, adds a 4px padding to the mode-line. Can be an integer to determine the exact padding."
   :group 'gruvbox-material-theme
   :type '(choice integer boolean))
 
@@ -40,8 +39,7 @@ determine the exact padding."
    (base8      '("#5a524c" "#5a524c" "white"        ))
    (fg         '("#d4be98" "#d4be98" "white"        ))
    (fg-alt     '("#282828" "#282828" "brightwhite"  ))
-
-   (grey       base4)
+   (grey       fg)
    (red        '("#ea6962" "#ea6962" "red"          )) 
    (magenta    '("#d3869b" "#d3869b" "magenta"      ))
    (violet     '("#d3869b" "#d3869b" "brightmagenta"))
@@ -61,8 +59,8 @@ determine the exact padding."
    (vertical-bar   grey)
    (selection      accent)
    (builtin        orange)
-   (comments       (if gruvbox-material-brighter-comments magenta base6))
-   (doc-comments   (if gruvbox-material-brighter-comments (doom-lighten magenta 0.2) (doom-lighten fg-alt 0.25)))
+   (comments       magenta)
+   (doc-comments   (doom-lighten magenta 0.2))
    (constants      yellow)
    (functions      green)
    (keywords       red)
@@ -82,11 +80,7 @@ determine the exact padding."
    (vc-deleted     red)
 
    ;; custom categories
-   (-modeline-pad
-    (when gruvbox-material-padded-modeline
-      (if (integerp gruvbox-material-padded-modeline)
-          gruvbox-material-padded-modeline
-        4)))
+   (-modeline-pad nil)
 
    (org-quote `(,(doom-lighten (car bg) 0.05) "#1f1f1f")))
 
@@ -94,8 +88,8 @@ determine the exact padding."
   (
    ;;;;;;;; Editor ;;;;;;;;
    (cursor :background "white")
-   (hl-line :background bg-alt)
-   ((line-number-current-line &override) :background grey :foreground "white" :bold t)
+   (hl-line :background selection)
+   ((line-number-current-line &override) :background bg-alt :foreground fg-alt :bold t)
    ((line-number &override) :foreground grey)
 
    ;; Vimish-fold
@@ -155,7 +149,7 @@ determine the exact padding."
    (ivy-posframe-border :background base1)
 
    ;; neotree
-   (neo-root-dir-face   :foreground green )
+   (neo-root-dir-face   :foreground green)
    (doom-neotree-dir-face :foreground cyan)
    (neo-dir-link-face   :foreground cyan)
    (doom-neotree-file-face :foreground fg)

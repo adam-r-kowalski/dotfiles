@@ -16,7 +16,6 @@
 (display-time-mode)
 (show-paren-mode 1)
 
-
 (set-face-attribute 'default nil
                     :family "FiraMono Nerd Font"
                     :height 160
@@ -97,7 +96,6 @@
 (use-package projectile
   :init (setq projectile-project-search-path '("~/code/"))
   :config (projectile-mode))
-
 
 (use-package counsel-projectile
   :after (counsel projectile)

@@ -18,7 +18,7 @@
 
 
 (set-face-attribute 'default nil
-                    :family "Fira Code"
+                    :family "FiraMono Nerd Font"
                     :height 160
                     :weight 'normal
                     :width 'normal)
@@ -70,7 +70,7 @@
 	doom-themes-enable-italic t
 	doom-themes-treemacs-theme "doom-colors")
   :config
-  (load-theme 'adam-nord t)
+  (load-theme 'gruvbox-material t)
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
 
@@ -234,6 +234,18 @@
 (use-package vterm)
 
 
+(use-package dashboard
+  :init
+  (setq dashboard-set-file-icons t
+	dashboard-set-heading-icons t
+	dashboard-set-navigator t
+	dashboard-set-init-info t
+	dashboard-items '((projects . 5)
+			  (recents .5)
+			  (agenda . 5)))
+  :config (dashboard-setup-startup-hook))
+
+
 (defun find-user-init-file ()
   (interactive)
   (find-file user-init-file))
@@ -337,50 +349,3 @@
 
 
 
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#2e3340" "#bf6069" "#a3be8b" "#eacb8a" "#81a1c1" "#b48dac" "#88c0d0" "#d8dee8"])
- '(custom-safe-themes
-   '("8e845243c9bc1a8d77be2e0567cb89a450118689e831a802ab9013093f6efd1a" default))
- '(fci-rule-color "#4c556a")
- '(jdee-db-active-breakpoint-face-colors (cons "#3b4251" "#81a1c1"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#3b4251" "#a3be8b"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#3b4251" "#4c556a"))
- '(objed-cursor-color "#bf6069")
- '(pdf-view-midnight-colors (cons "#d8dee8" "#2e3340"))
- '(rustic-ansi-faces
-   ["#2e3340" "#bf6069" "#a3be8b" "#eacb8a" "#81a1c1" "#b48dac" "#88c0d0" "#d8dee8"])
- '(vc-annotate-background "#2e3340")
- '(vc-annotate-color-map
-   (list
-    (cons 20 "#a3be8b")
-    (cons 40 "#bac28a")
-    (cons 60 "#d2c68a")
-    (cons 80 "#eacb8a")
-    (cons 100 "#dba77f")
-    (cons 120 "#cd8373")
-    (cons 140 "#bf6069")
-    (cons 160 "#bb6f7f")
-    (cons 180 "#b77e95")
-    (cons 200 "#b48dac")
-    (cons 220 "#b77e95")
-    (cons 240 "#bb6f7f")
-    (cons 260 "#bf6069")
-    (cons 280 "#a25d69")
-    (cons 300 "#855a69")
-    (cons 320 "#685769")
-    (cons 340 "#4c556a")
-    (cons 360 "#4c556a")))
- '(vc-annotate-very-old-color nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

@@ -89,8 +89,8 @@
    ;;;;;;;; Editor ;;;;;;;;
    (cursor :background "white")
    (hl-line :background selection)
-   ((line-number-current-line &override) :background bg-alt :foreground fg-alt :bold t)
-   ((line-number &override) :foreground grey)
+   ((line-number-current-line &override) :background (doom-darken fg 0.3) :foreground bg :bold t)
+   ((line-number &override) :foreground (doom-darken fg 0.3))
 
    ;; Vimish-fold
    ((vimish-fold-overlay &override) :inherit 'font-lock-comment-face :background accent :weight 'light)

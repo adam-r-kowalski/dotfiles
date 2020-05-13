@@ -99,12 +99,12 @@
 
    ;;;;;;;; Doom-modeline ;;;;;;;;
    (mode-line
-    :background accent :foreground (doom-lighten fg-alt 0.25)
-    :box (if -modeline-pad `(:line-width ,-modeline-pad :color base3)))
+    :background accent :foreground (doom-lighten fg 0.25)
+    :box (if -modeline-pad `(:line-width ,-modeline-pad :color fg)))
 
    (mode-line-inactive
-    :background bg :foreground base4
-    :box (if -modeline-pad `(:line-width ,-modeline-pad :color base2)))
+    :background bg :foreground fg
+    :box (if -modeline-pad `(:line-width ,-modeline-pad :color fg)))
 
    ;; File-name
    (doom-modeline-project-dir :bold t :foreground cyan)

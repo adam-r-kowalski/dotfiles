@@ -18,7 +18,7 @@
 
 
 (let ((family "FiraMono Nerd Font")
-      (height 140))
+      (height 160))
   (set-face-attribute 'default nil :family family :height height :weight 'normal :width 'normal)
   (set-face-attribute 'mode-line nil :family family :height height)
   (set-face-attribute 'mode-line-inactive nil :family family :height height))
@@ -231,9 +231,6 @@
 (use-package cmake-mode)
 
 
-(use-package vterm)
-
-
 (use-package dashboard
   :init
   (setq dashboard-set-file-icons t
@@ -277,6 +274,33 @@
   :config (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
 
 
+(use-package rainbow-delimiters
+  :config (rainbow-delimiters-mode 1))
+
+
+(use-package evil-cleverparens
+  :hook ((emacs-lisp-mode . evil-cleverparens-mode)))
+
+
+(use-package adjust-parens
+  :straight (adjust-parens :type git :host github :repo "emacs-straight/adjust-parens"))
+
+
+(general-define-key
+ :states '(insert normal visual emacs)
+ :keymaps 'emacs-lisp-mode-map
+ "TAB" 'lisp-indent-adjust-parens
+ "<backtab>" 'lisp-dedent-adjust-parens)
+
+
+(defun gitter-irc ()
+  (interactive)
+  (erc-tls :server "irc.gitter.im"
+	   :port 6697
+	   :nick "adam-r-kowalski"
+	   :full-name "Adam Kowalski"
+	   :password (read-string "Enter your password:")))
+
 
 (general-define-key
  :states '(normal visual emacs)
@@ -295,8 +319,9 @@
  "d" 'recompile
  "D" 'compile
  "m" 'magit
- "s" 'vterm
- "T" 'switch-theme)
+ "s" 'eshell
+ "T" 'switch-theme
+ "G" 'gitter-irc)
 
 
 (general-define-key
@@ -317,7 +342,8 @@
  :states '(normal visual emacs)
  :keymaps 'python-mode-map
  :prefix "SPC t"
- "n" 'dap-python--debug-test-at-point)
+ "n" 'dap-python--debug-test-at-point
+ "f" 'dap-python--debug-test-buffer)
 
 
 (general-define-key
@@ -346,7 +372,6 @@
  "r" 'lsp-ui-peek-find-references
  "s" 'lsp-ivy-global-workspace-symbol
  "b" 'evil-jump-backward)
-
 
 
 (custom-set-variables
@@ -388,6 +413,7 @@
     (cons 340 "#45403d")
     (cons 360 "#45403d")))
  '(vc-annotate-very-old-color nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

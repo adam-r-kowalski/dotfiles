@@ -6,7 +6,8 @@
       frame-resize-pixelwise t
       display-line-numbers-type 'relative
       ring-bell-function 'ignore
-      straight-use-package-by-default t)
+      straight-use-package-by-default t
+      indent-tabs-mode nil)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -131,8 +132,15 @@
   (when (eq major-mode 'c++-mode)
     (lsp-format-buffer)))
 
+
+(defun lsp-rust-mode-hook ()
+  (set (make-local-variable 'compile-command)
+       (format "cd %s && cargo test" (projectile-project-root)))
+  (lsp-deferred))
+
 (add-hook 'c++-mode-hook 'lsp-c++-mode-hook)
 (add-hook 'before-save-hook #'c++-mode-before-save-hook)
+(add-hook 'rust-mode-hook 'lsp-rust-mode-hook)
 
 (use-package posframe)
 
@@ -203,6 +211,7 @@
   (call-interactively 'load-theme))
 
 (defun colorize-compilation-buffer ()
+  (interactive)
   (let ((inhibit-read-only t))
     (ansi-color-apply-on-region (point-min) (point-max))))
 
@@ -217,6 +226,12 @@
 
 (use-package adjust-parens
   :straight (adjust-parens :type git :host github :repo "emacs-straight/adjust-parens"))
+
+(use-package rust-mode
+  :init
+  (setq rust-format-on-save t))
+
+(use-package vterm)
 
 (general-define-key
  :states '(insert normal visual emacs)
@@ -250,6 +265,7 @@
  "D" 'compile
  "m" 'magit
  "s" 'eshell
+ "S" 'vterm
  "T" 'switch-theme
  "G" 'gitter-irc)
 
@@ -311,7 +327,7 @@
  '(ansi-color-names-vector
    ["#282828" "#ea6962" "#a9b665" "#d8a657" "#7daea3" "#d3869b" "#89b482" "#d4be98"])
  '(custom-safe-themes
-   '("5ee2e93e9365f82c1d446ab65b3281a78936f7245f83fe5efee1f5de736d6bdf" default))
+   '("cbece9a2b2b2f48b1aaf5017c7269e91c402024ca888bf9118e85fbad121f99d" "5ee2e93e9365f82c1d446ab65b3281a78936f7245f83fe5efee1f5de736d6bdf" default))
  '(fci-rule-color "#45403d")
  '(jdee-db-active-breakpoint-face-colors (cons "#32302f" "#d8a657"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#32302f" "#a9b665"))

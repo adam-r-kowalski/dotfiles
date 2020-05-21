@@ -13,6 +13,7 @@ Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
+Plug 'vim-test/vim-test'
 call plug#end()
 
 set termguicolors
@@ -61,6 +62,8 @@ set relativenumber
 set updatetime=300
 
 set shortmess+=c
+
+set mouse=a
 
 if has("patch-8.1.1564")
   set signcolumn=number
@@ -144,6 +147,8 @@ function! s:GrepArgs(...)
   return join(list, "\n")
 endfunction
 
+let test#strategy = "neovim"
+
 nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
 nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
@@ -154,6 +159,12 @@ vnoremap <silent> <leader>v :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 nnoremap <silent> <leader>v :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
 nnoremap <silent> <Leader>w :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
 nnoremap <silent> <leader>e :CocCommand explorer<CR>
+
+nnoremap <silent> <leader>tn :TestNearest<CR>
+nnoremap <silent> <leader>tf :TestFile<CR>
+nnoremap <silent> <leader>ts :TestSuite<CR>
+nnoremap <silent> <leader>tl :TestLast<CR>
+nnoremap <silent> <leader>tv :TestVisit<CR>
 
 
 nnoremap ; :

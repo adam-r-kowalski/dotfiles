@@ -17,6 +17,7 @@ Plug 'vim-test/vim-test'
 Plug 'puremourning/vimspector'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
+Plug 'dag/vim-fish'
 call plug#end()
 
 set nocompatible

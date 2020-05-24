@@ -15,6 +15,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'vim-test/vim-test'
 Plug 'puremourning/vimspector'
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 set nocompatible
@@ -80,13 +82,9 @@ set mouse=a
 set splitbelow
 set splitright
 
-set shell=/usr/local/bin/nu
+set shell=/usr/local/bin/fish
 
-if has("patch-8.1.1564")
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set signcolumn=yes
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -185,10 +183,10 @@ nnoremap <silent> <leader>ts :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tv :TestVisit<CR>
 
-nmap <silent> [ <Plug>VimspectorStepOver
-nmap <silent> ] <Plug>VimspectorStepInto
-nmap <silent> \ <Plug>VimspectorStepOut
-nmap <silent> <localleader>l <Plug>VimspectorContinue
+nmap <silent> <localleader>n <Plug>VimspectorStepOver
+nmap <silent> <localleader>i <Plug>VimspectorStepInto
+nmap <silent> <localleader>o <Plug>VimspectorStepOut
+nmap <silent> <localleader>p <Plug>VimspectorContinue
 nmap <silent> <localleader>b <Plug>VimspectorToggleBreakpoint
 nmap <silent> <localleader>c <Plug>VimspectorToggleConditionalBreakpoint
 nnoremap <silent> <localleader>k :VimspectorReset<CR>
@@ -216,3 +214,12 @@ tnoremap <c-k> <c-\><c-n><c-w>k
 nnoremap <c-l> <c-w>l
 inoremap <c-l> <esc><c-w>l
 tnoremap <c-k> <c-\><c-n><c-w>k
+
+let g:sneak#label = 1
+let g:sneak#s_next = 1
+
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+

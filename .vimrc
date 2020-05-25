@@ -26,6 +26,9 @@ set termguicolors
 set background=dark
 colorscheme gruvbox-material
 
+hi Comment guifg=#928374 guibg=NONE guisp=NONE gui=italic cterm=NONE
+
+
 let g:lightline = {
   \ 'colorscheme': 'gruvbox_material',
   \ 'active': {

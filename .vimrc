@@ -14,11 +14,20 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'vim-test/vim-test'
+Plug 'puremourning/vimspector'
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
+Plug 'dag/vim-fish'
 call plug#end()
+
+set nocompatible
 
 set termguicolors
 set background=dark
 colorscheme gruvbox-material
+
+hi Comment guifg=#928374 guibg=NONE guisp=NONE gui=italic cterm=NONE
+
 
 let g:lightline = {
   \ 'colorscheme': 'gruvbox_material',
@@ -44,6 +53,11 @@ endfunction
 
 set hidden
 
+set autoindent
+set backspace=indent,eol,start
+set complete-=i
+set smarttab
+
 set nobackup
 set noswapfile
 set noundofile
@@ -59,20 +73,22 @@ set clipboard^=unnamed,unnamedplus
 set number
 set relativenumber
 
+set incsearch
+
 set updatetime=300
 
 set shortmess+=c
+
+set laststatus=2
 
 set mouse=a
 
 set splitbelow
 set splitright
 
-if has("patch-8.1.1564")
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set shell=/usr/local/bin/fish
+
+set signcolumn=yes
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -102,6 +118,7 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> gb <c-o>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -112,7 +129,8 @@ endfunction
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-let mapleader = "\<Space>"
+let mapleader = " "
+let maplocalleader = ","
 
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -150,7 +168,7 @@ function! s:GrepArgs(...)
   return join(list, "\n")
 endfunction
 
-let test#strategy = "neovim"
+let test#strategy = "vimterminal"
 
 nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
 nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
@@ -169,6 +187,13 @@ nnoremap <silent> <leader>ts :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tv :TestVisit<CR>
 
+nmap <silent> <localleader>n <Plug>VimspectorStepOver
+nmap <silent> <localleader>i <Plug>VimspectorStepInto
+nmap <silent> <localleader>o <Plug>VimspectorStepOut
+nmap <silent> <localleader>p <Plug>VimspectorContinue
+nmap <silent> <localleader>b <Plug>VimspectorToggleBreakpoint
+nmap <silent> <localleader>c <Plug>VimspectorToggleConditionalBreakpoint
+nnoremap <silent> <localleader>k :VimspectorReset<CR>
 
 nnoremap ; :
 vnoremap ; :
@@ -178,11 +203,30 @@ tnoremap jk <C-\><C-n>
 
 inoremap jk <esc>
 
+tnoremap jk <c-\><c-n>
+tnoremap <esc> <c-\><c-n>
+
 nnoremap <c-h> <c-w>h
 inoremap <c-h> <esc><c-w>h
+tnoremap <c-h> <c-\><c-n><c-w>h
+
 nnoremap <c-j> <c-w>j
 inoremap <c-j> <esc><c-w>j
+tnoremap <c-j> <c-\><c-n><c-w>j
+
 nnoremap <c-k> <c-w>k
 inoremap <c-k> <esc><c-w>k
+tnoremap <c-k> <c-\><c-n><c-w>k
+
 nnoremap <c-l> <c-w>l
 inoremap <c-l> <esc><c-w>l
+tnoremap <c-k> <c-\><c-n><c-w>k
+
+let g:sneak#label = 1
+let g:sneak#s_next = 1
+
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+

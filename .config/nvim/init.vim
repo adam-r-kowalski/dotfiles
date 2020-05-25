@@ -54,7 +54,7 @@ set noshowmode
 
 set cmdheight=1
 
-set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
 
 set number
 set relativenumber
@@ -172,6 +172,9 @@ nnoremap <silent> <leader>tv :TestVisit<CR>
 
 nnoremap ; :
 vnoremap ; :
+
+tnoremap <Esc> <C-\><C-n>
+tnoremap jk <C-\><C-n>
 
 inoremap jk <esc>
 

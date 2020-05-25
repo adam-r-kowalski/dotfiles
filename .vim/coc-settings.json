@@ -1,0 +1,7 @@
+{
+	"explorer.position": "right",
+	"explorer.icon.enableNerdfont": true,
+	"explorer.icon.enableVimDevicons": true,
+	"python.jediEnabled": false,
+	"coc.preferences.formatOnSaveFiletypes": ["rust"]
+}

@@ -226,5 +226,3 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 let g:python_highlight_all = 1
-
-hi Normal guibg=NONE ctermbg=NONE

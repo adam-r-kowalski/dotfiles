@@ -1,5 +1,5 @@
 call plug#begin('~/.vim/plugged')
-Plug 'sainnhe/gruvbox-material'
+Plug 'ayu-theme/ayu-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
@@ -18,19 +18,19 @@ Plug 'puremourning/vimspector'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
+Plug 'Yggdroot/indentLine'
 call plug#end()
 
 set nocompatible
 
-set termguicolors
 set background=dark
-colorscheme gruvbox-material
-
-hi Comment guifg=#928374 guibg=NONE guisp=NONE gui=italic cterm=NONE
+set termguicolors
+let ayucolor="dark"
+colorscheme ayu
 
 
 let g:lightline = {
-  \ 'colorscheme': 'gruvbox_material',
+  \ 'colorscheme': 'ayu',
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste' ],
@@ -86,7 +86,7 @@ set mouse=a
 set splitbelow
 set splitright
 
-set shell=/usr/local/bin/fish
+set shell=fish
 
 set signcolumn=yes
 
@@ -230,3 +230,5 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 0

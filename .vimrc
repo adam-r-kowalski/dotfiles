@@ -1,5 +1,5 @@
 call plug#begin('~/.vim/plugged')
-Plug 'ayu-theme/ayu-vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
@@ -18,19 +18,18 @@ Plug 'puremourning/vimspector'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
-Plug 'Yggdroot/indentLine'
+Plug 'vim-python/python-syntax'
 call plug#end()
 
 set nocompatible
 
 set background=dark
 set termguicolors
-let ayucolor="dark"
-colorscheme ayu
+colorscheme nord
 
 
 let g:lightline = {
-  \ 'colorscheme': 'ayu',
+  \ 'colorscheme': 'nord',
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste' ],
@@ -230,5 +229,4 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_setColors = 0
+let g:python_highlight_all = 1

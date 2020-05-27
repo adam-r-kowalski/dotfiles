@@ -32,4 +32,6 @@ alias v=vim
 alias vi=vim
 alias e="emacsclient -a '' -c"
 
+fish_vi_key_bindings
+
 zoxide init fish | source

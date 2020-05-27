@@ -18,7 +18,6 @@ Plug 'puremourning/vimspector'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
-Plug 'Yggdroot/indentLine'
 call plug#end()
 
 set nocompatible
@@ -198,13 +197,9 @@ nnoremap <silent> <localleader>k :VimspectorReset<CR>
 nnoremap ; :
 vnoremap ; :
 
-tnoremap <Esc> <C-\><C-n>
-tnoremap jk <C-\><C-n>
-
 inoremap jk <esc>
 
 tnoremap jk <c-\><c-n>
-tnoremap <esc> <c-\><c-n>
 
 nnoremap <c-h> <c-w>h
 inoremap <c-h> <esc><c-w>h
@@ -230,5 +225,4 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_setColors = 0
+hi Normal guibg=NONE ctermbg=NONE

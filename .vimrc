@@ -197,13 +197,9 @@ nnoremap <silent> <localleader>k :VimspectorReset<CR>
 nnoremap ; :
 vnoremap ; :
 
-tnoremap <Esc> <C-\><C-n>
-tnoremap jk <C-\><C-n>
-
 inoremap jk <esc>
 
 tnoremap jk <c-\><c-n>
-tnoremap <esc> <c-\><c-n>
 
 nnoremap <c-h> <c-w>h
 inoremap <c-h> <esc><c-w>h
@@ -230,3 +226,5 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 let g:python_highlight_all = 1
+
+hi Normal guibg=NONE ctermbg=NONE

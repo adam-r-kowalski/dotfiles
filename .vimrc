@@ -33,6 +33,11 @@ set termguicolors
 colorscheme dracula
 
 
+set path+=**
+
+set wildmenu
+
+
 let g:lightline = {
   \ 'colorscheme': 'dracula',
   \ 'active': {

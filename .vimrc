@@ -1,4 +1,5 @@
 call plug#begin('~/.vim/plugged')
+Plug 'dracula/vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
@@ -8,7 +9,9 @@ Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-snippets' , {'do': 'yarn install --frozen-lockfile'}
 Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
+Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
@@ -23,13 +26,15 @@ call plug#end()
 
 set nocompatible
 
+let g:dracula_italic = 0
+
 set background=dark
 set termguicolors
-colorscheme nord
+colorscheme dracula
 
 
 let g:lightline = {
-  \ 'colorscheme': 'nord',
+  \ 'colorscheme': 'dracula',
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste' ],
@@ -68,6 +73,10 @@ set noshowmode
 set cmdheight=1
 
 set clipboard^=unnamed,unnamedplus
+
+
+set tabstop=4 shiftwidth=4 expandtab
+autocmd FileType nasm setlocal tabstop=8 shiftwidth=8 expandtab
 
 set number
 set relativenumber
@@ -226,3 +235,10 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 let g:python_highlight_all = 1
+
+let g:asmsyntax = 'nasm'
+
+let g:markdown_fenced_languages = [
+      \ 'vim',
+      \ 'help'
+      \]

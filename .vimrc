@@ -22,6 +22,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
 Plug 'vim-python/python-syntax'
+Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+Plug 'lotabout/skim.vim'
 call plug#end()
 
 set nocompatible
@@ -186,8 +188,8 @@ let test#strategy = "vimterminal"
 nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
 nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
-nnoremap <silent> <leader>f  :<C-u>CocList files<cr>
-nnoremap <silent> <leader>b  :<C-u>CocList buffers<cr>
+nnoremap <silent> <leader>f  :Files<cr>
+nnoremap <silent> <leader>b  :Buffers<cr>
 nnoremap <silent> <leader>g  :<C-u>CocList grep<cr>
 vnoremap <silent> <leader>v :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 nnoremap <silent> <leader>v :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@

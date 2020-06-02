@@ -14,11 +14,11 @@ Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
 Plug 'vim-test/vim-test'
 Plug 'puremourning/vimspector'
 Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
 Plug 'vim-python/python-syntax'
@@ -186,13 +186,13 @@ let test#strategy = "vimterminal"
 nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
 nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
-nnoremap <leader>f  :find 
-nnoremap <leader>b  :b 
+nnoremap <silent> <leader>f  :<C-u>CocList files<cr>
+nnoremap <silent> <leader>b  :<C-u>CocList buffers<cr>
 nnoremap <silent> <leader>g  :<C-u>CocList grep<cr>
 vnoremap <silent> <leader>v :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 nnoremap <silent> <leader>v :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
 nnoremap <silent> <Leader>w :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-nnoremap <silent> <leader>e :CocCommand explorer<CR>
+nnoremap <silent> <leader>e :CocCommand explorer<cr>
 
 nnoremap <silent> <leader>tn :TestNearest<CR>
 nnoremap <silent> <leader>tf :TestFile<CR>

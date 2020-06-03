@@ -1,3 +1,6 @@
+set path+=**
+set wildmenu
+
 let filename = '.gitignore'
 if filereadable(filename)
     let igstring = ''

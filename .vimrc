@@ -1,19 +1,13 @@
 call plug#begin('~/.vim/plugged')
 Plug 'dracula/vim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets' , {'do': 'yarn install --frozen-lockfile'}
-Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
-Plug 'ryanoasis/vim-devicons'
 Plug 'vim-test/vim-test'
 Plug 'puremourning/vimspector'
 Plug 'justinmk/vim-sneak'
@@ -22,6 +16,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
 Plug 'vim-python/python-syntax'
+Plug 'psliwka/vim-smoothie'
 call plug#end()
 
 set nocompatible
@@ -31,34 +26,6 @@ let g:dracula_italic = 0
 set background=dark
 set termguicolors
 colorscheme dracula
-
-
-set path+=**
-
-set wildmenu
-
-
-let g:lightline = {
-  \ 'colorscheme': 'dracula',
-  \ 'active': {
-  \   'left': [
-  \     [ 'mode', 'paste' ],
-  \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
-  \   ],
-  \   'right':[
-  \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
-  \     [ 'blame' ]
-  \   ],
-  \ },
-  \ 'component_function': {
-  \   'blame': 'LightlineGitBlame',
-  \ }
-\ }
-
-function! LightlineGitBlame() abort
-  let blame = get(b:, 'coc_git_blame', '')
-  return winwidth(0) > 120 ? blame : ''
-endfunction
 
 set hidden
 
@@ -74,8 +41,8 @@ set noundofile
 set nowrap
 
 set noshowmode
-
-set cmdheight=1
+set noruler
+set laststatus=0
 
 set clipboard^=unnamed,unnamedplus
 
@@ -91,8 +58,6 @@ set incsearch
 set updatetime=300
 
 set shortmess+=c
-
-set laststatus=2
 
 set mouse=a
 
@@ -122,13 +87,12 @@ else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent> gb <c-o>
+
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> gb <c-o>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 
@@ -146,15 +110,6 @@ let mapleader = " "
 let maplocalleader = ","
 
 nmap <leader>rn <Plug>(coc-rename)
-
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
 
 command! -nargs=0 Format :call CocAction('format')
 
@@ -183,16 +138,19 @@ endfunction
 
 let test#strategy = "vimterminal"
 
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+
 nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
 nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
-nnoremap <leader>f :find 
-nnoremap <leader>b :b 
 nnoremap <silent> <leader>g  :<C-u>CocList grep<cr>
-vnoremap <silent> <leader>v :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-nnoremap <silent> <leader>v :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
 nnoremap <silent> <Leader>w :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-nnoremap <silent> <leader>e :CocCommand explorer<cr>
+nnoremap <leader>f :find 
+nnoremap <leader>v :vs **/
+nnoremap <leader>h :sp **/
+nnoremap <leader>b :b 
+nnoremap <silent> <leader>e :Explore<cr>
 
 nnoremap <silent> <leader>tn :TestNearest<CR>
 nnoremap <silent> <leader>tf :TestFile<CR>
@@ -247,6 +205,3 @@ let g:markdown_fenced_languages = [
       \ 'vim',
       \ 'help'
       \]
-
-set path+=**
-set wildmenu

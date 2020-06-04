@@ -1,4 +1,5 @@
 call plug#begin('~/.vim/plugged')
+Plug 'sainnhe/gruvbox-material'
 Plug 'dracula/vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
@@ -21,11 +22,9 @@ call plug#end()
 
 set nocompatible
 
-let g:dracula_italic = 0
-
 set background=dark
 set termguicolors
-colorscheme dracula
+colorscheme gruvbox-material
 
 set hidden
 

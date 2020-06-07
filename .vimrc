@@ -1,6 +1,5 @@
 call plug#begin('~/.vim/plugged')
-Plug 'sainnhe/gruvbox-material'
-Plug 'dracula/vim'
+Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
@@ -9,8 +8,8 @@ Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+Plug 'puremourning/vimspector', {'do': 'python install_gadget.py --all --disable-tcl'}
 Plug 'vim-test/vim-test'
-Plug 'puremourning/vimspector'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
@@ -18,13 +17,16 @@ Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
 Plug 'vim-python/python-syntax'
 Plug 'psliwka/vim-smoothie'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'vim-airline/vim-airline'
+Plug 'edkolev/tmuxline.vim'
 call plug#end()
 
 set nocompatible
 
 set background=dark
 set termguicolors
-colorscheme gruvbox-material
+colorscheme gruvbox
 
 set hidden
 
@@ -32,6 +34,8 @@ set autoindent
 set backspace=indent,eol,start
 set complete-=i
 set smarttab
+
+set laststatus=2
 
 set nobackup
 set noswapfile
@@ -41,10 +45,9 @@ set nowrap
 
 set noshowmode
 set noruler
-set laststatus=0
+set laststatus=2
 
 set clipboard^=unnamed,unnamedplus
-
 
 set tabstop=4 shiftwidth=4 expandtab
 autocmd FileType nasm setlocal tabstop=8 shiftwidth=8 expandtab
@@ -170,24 +173,6 @@ vnoremap ; :
 
 inoremap jk <esc>
 
-tnoremap jk <c-\><c-n>
-
-nnoremap <c-h> <c-w>h
-inoremap <c-h> <esc><c-w>h
-tnoremap <c-h> <c-\><c-n><c-w>h
-
-nnoremap <c-j> <c-w>j
-inoremap <c-j> <esc><c-w>j
-tnoremap <c-j> <c-\><c-n><c-w>j
-
-nnoremap <c-k> <c-w>k
-inoremap <c-k> <esc><c-w>k
-tnoremap <c-k> <c-\><c-n><c-w>k
-
-nnoremap <c-l> <c-w>l
-inoremap <c-l> <esc><c-w>l
-tnoremap <c-k> <c-\><c-n><c-w>k
-
 let g:sneak#label = 1
 let g:sneak#s_next = 1
 
@@ -204,3 +189,6 @@ let g:markdown_fenced_languages = [
       \ 'vim',
       \ 'help'
       \]
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme='gruvbox'

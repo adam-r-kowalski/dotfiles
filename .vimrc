@@ -161,13 +161,14 @@ nnoremap <silent> <leader>ts :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tv :TestVisit<CR>
 
-nmap <silent> <localleader>n <Plug>VimspectorStepOver
-nmap <silent> <localleader>i <Plug>VimspectorStepInto
-nmap <silent> <localleader>o <Plug>VimspectorStepOut
-nmap <silent> <localleader>p <Plug>VimspectorContinue
-nmap <silent> <localleader>b <Plug>VimspectorToggleBreakpoint
-nmap <silent> <localleader>c <Plug>VimspectorToggleConditionalBreakpoint
-nnoremap <silent> <localleader>k :VimspectorReset<CR>
+" nmap <silent> <localleader>n <Plug>VimspectorStepOver
+" nmap <silent> <localleader>i <Plug>VimspectorStepInto
+" nmap <silent> <localleader>o <Plug>VimspectorStepOut
+" nmap <silent> <localleader>p <Plug>VimspectorContinue
+" nmap <silent> <localleader>b <Plug>VimspectorToggleBreakpoint
+" nmap <silent> <localleader>c <Plug>VimspectorToggleConditionalBreakpoint
+nnoremap <silent> <F2> :VimspectorReset<CR>
+let g:vimspector_enable_mappings = 'HUMAN'
 
 nnoremap ; :
 vnoremap ; :

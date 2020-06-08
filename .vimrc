@@ -193,3 +193,9 @@ let g:markdown_fenced_languages = [
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='gruvbox'
+
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end

@@ -140,7 +140,8 @@ endfunction
 
 let test#strategy = "vimterminal"
 
-let g:netrw_liststyle = 3
+let ghregex='\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide=ghregex
 let g:netrw_banner = 0
 
 nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>

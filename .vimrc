@@ -1,5 +1,5 @@
 call plug#begin('~/.vim/plugged')
-Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
@@ -17,16 +17,13 @@ Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
 Plug 'vim-python/python-syntax'
 Plug 'psliwka/vim-smoothie'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'vim-airline/vim-airline'
-Plug 'edkolev/tmuxline.vim'
 call plug#end()
 
 set nocompatible
 
-set background=dark
 set termguicolors
-colorscheme gruvbox
+set background=dark
+colorscheme nord
 
 set hidden
 
@@ -43,7 +40,6 @@ set noundofile
 
 set nowrap
 
-set noshowmode
 set noruler
 set laststatus=2
 
@@ -161,12 +157,6 @@ nnoremap <silent> <leader>ts :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tv :TestVisit<CR>
 
-" nmap <silent> <localleader>n <Plug>VimspectorStepOver
-" nmap <silent> <localleader>i <Plug>VimspectorStepInto
-" nmap <silent> <localleader>o <Plug>VimspectorStepOut
-" nmap <silent> <localleader>p <Plug>VimspectorContinue
-" nmap <silent> <localleader>b <Plug>VimspectorToggleBreakpoint
-" nmap <silent> <localleader>c <Plug>VimspectorToggleConditionalBreakpoint
 nnoremap <silent> <F2> :VimspectorReset<CR>
 let g:vimspector_enable_mappings = 'HUMAN'
 
@@ -192,11 +182,26 @@ let g:markdown_fenced_languages = [
       \ 'help'
       \]
 
-let g:airline_powerline_fonts = 1
-let g:airline_theme='gruvbox'
-
 if has("mouse_sgr")
     set ttymouse=sgr
 else
     set ttymouse=xterm2
 end
+
+set ttimeoutlen=100
+
+nnoremap <c-h> <c-w><c-h>
+inoremap <c-h> <esc><c-w><c-h>
+tnoremap <c-h> <c-\><c-n><c-w><c-h>
+
+nnoremap <c-j> <c-w><c-j>
+inoremap <c-j> <esc><c-w><c-j>
+tnoremap <c-j> <c-\><c-n><c-w><c-j>
+
+nnoremap <c-k> <c-w><c-k>
+inoremap <c-k> <esc><c-w><c-k>
+tnoremap <c-k> <c-\><c-n><c-w><c-k>
+
+nnoremap <c-l> <c-w><c-l>
+inoremap <c-l> <esc><c-w><c-l>
+tnoremap <c-l> <c-\><c-n><c-w><c-l>

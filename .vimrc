@@ -13,6 +13,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-abolish'
 Plug 'dag/vim-fish'
 Plug 'vim-python/python-syntax'
 Plug 'psliwka/vim-smoothie'
@@ -51,6 +52,7 @@ autocmd FileType nasm setlocal tabstop=8 shiftwidth=8 expandtab
 set number
 set relativenumber
 
+set hlsearch
 set incsearch
 
 set updatetime=300
@@ -193,3 +195,5 @@ let g:slime_python_ipython=1
 xmap <localleader>e <Plug>SlimeRegionSend
 nmap <localleader>e <Plug>SlimeParagraphSend
 nmap <localleader>E <Plug>SlimeConfig
+
+map <esc> :noh<cr>

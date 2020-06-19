@@ -196,4 +196,3 @@ xmap <localleader>e <Plug>SlimeRegionSend
 nmap <localleader>e <Plug>SlimeParagraphSend
 nmap <localleader>E <Plug>SlimeConfig
 
-map <esc> :noh<cr>

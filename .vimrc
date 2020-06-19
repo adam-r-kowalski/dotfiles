@@ -1,7 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
@@ -17,6 +16,7 @@ Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
 Plug 'vim-python/python-syntax'
 Plug 'psliwka/vim-smoothie'
+Plug 'jpalardy/vim-slime'
 call plug#end()
 
 set nocompatible
@@ -111,51 +111,30 @@ nmap <leader>rn <Plug>(coc-rename)
 
 command! -nargs=0 Format :call CocAction('format')
 
-function! s:GrepFromSelected(type)
-  let saved_unnamed_register = @@
-  if a:type ==# 'v'
-    normal! `<v`>y
-  elseif a:type ==# 'char'
-    normal! `[v`]y
-  else
-    return
-  endif
-  let word = substitute(@@, '\n$', '', 'g')
-  let word = escape(word, '| ')
-  let @@ = saved_unnamed_register
-  execute 'CocList grep '.word
-endfunction
-
-command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
-
-function! s:GrepArgs(...)
-  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
-        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
-  return join(list, "\n")
-endfunction
-
 let test#strategy = "vimterminal"
 
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_list_hide=ghregex
 let g:netrw_banner = 0
 
-nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
-nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
-nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
-nnoremap <silent> <leader>g  :<C-u>CocList grep<cr>
-nnoremap <silent> <Leader>w :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-nnoremap <leader>f :find 
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+
+command -nargs=+ -complete=file -bar Grep silent! grep! <args>|cwindow|redraw!
+
+nnoremap <Leader>c :cclose<cr>
+nnoremap <Leader>w :grep! "\b<c-r><c-w>\b"<cr>:cw<cr>
+nnoremap <leader>g :Grep<space>
+nnoremap <leader>f :find<space>
 nnoremap <leader>v :vs **/
 nnoremap <leader>h :sp **/
-nnoremap <leader>b :b 
-nnoremap <silent> <leader>e :Explore<cr>
+nnoremap <leader>b :b<space>
+nnoremap <leader>e :Explore<cr>
 
-nnoremap <silent> <leader>tn :TestNearest<CR>
-nnoremap <silent> <leader>tf :TestFile<CR>
-nnoremap <silent> <leader>ts :TestSuite<CR>
-nnoremap <silent> <leader>tl :TestLast<CR>
-nnoremap <silent> <leader>tv :TestVisit<CR>
+nnoremap <leader>tn :TestNearest<CR>
+nnoremap <leader>tf :TestFile<CR>
+nnoremap <leader>ts :TestSuite<CR>
+nnoremap <leader>tl :TestLast<CR>
+nnoremap <leader>tv :TestVisit<CR>
 
 nnoremap <silent> <F2> :VimspectorReset<CR>
 let g:vimspector_enable_mappings = 'HUMAN'
@@ -205,3 +184,12 @@ tnoremap <c-k> <c-\><c-n><c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
 inoremap <c-l> <esc><c-w><c-l>
 tnoremap <c-l> <c-\><c-n><c-w><c-l>
+
+let g:slime_target = "vimterminal"
+let g:slime_vimterminal_config = {"term_finish": "close"}
+let g:slime_no_mappings = 1
+let g:slime_python_ipython=1
+
+xmap <localleader>e <Plug>SlimeRegionSend
+nmap <localleader>e <Plug>SlimeParagraphSend
+nmap <localleader>E <Plug>SlimeConfig

@@ -196,3 +196,5 @@ xmap <localleader>e <Plug>SlimeRegionSend
 nmap <localleader>e <Plug>SlimeParagraphSend
 nmap <localleader>E <Plug>SlimeConfig
 
+
+set shellpipe=>

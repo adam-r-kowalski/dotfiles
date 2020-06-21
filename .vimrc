@@ -19,6 +19,7 @@ Plug 'dag/vim-fish'
 Plug 'vim-python/python-syntax'
 Plug 'psliwka/vim-smoothie'
 Plug 'jpalardy/vim-slime'
+Plug 'stefandtw/quickfix-reflector.vim'
 call plug#end()
 
 set nocompatible
@@ -201,3 +202,5 @@ nmap <localleader>E <Plug>SlimeConfig
 set shellpipe=>
 
 let g:airline_powerline_fonts = 1
+
+set noshowmode

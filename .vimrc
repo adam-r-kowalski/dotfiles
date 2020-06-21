@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
+Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
@@ -198,3 +199,5 @@ nmap <localleader>E <Plug>SlimeConfig
 
 
 set shellpipe=>
+
+let g:airline_powerline_fonts = 1

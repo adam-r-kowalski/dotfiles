@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
@@ -198,9 +198,12 @@ xmap <localleader>e <Plug>SlimeRegionSend
 nmap <localleader>e <Plug>SlimeParagraphSend
 nmap <localleader>E <Plug>SlimeConfig
 
-
 set shellpipe=>
 
-let g:airline_powerline_fonts = 1
-
 set noshowmode
+
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }

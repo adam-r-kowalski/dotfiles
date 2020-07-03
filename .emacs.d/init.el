@@ -99,8 +99,7 @@
 
 (use-package lsp-ui
   :straight t
-  :custom 
-  (lsp-ui-doc-mode nil)
+  :custom (lsp-ui-doc-enable nil)
   :commands lsp-ui-mode)
 
 
@@ -164,7 +163,8 @@
 
 (use-package doom-modeline
   :straight t
-  :custom (doom-modeline-buffer-file-name-style 'truncate-with-project)
+  :custom
+  (doom-modeline-buffer-file-name-style 'truncate-with-project)
   :config
   (display-battery-mode 1)
   (display-time-mode 1)
@@ -222,6 +222,7 @@
  "s" 'eshell
  "S" 'vterm
  "e" 'treemacs
+ "d" '(nil :which-key "debug")
  "t" '(nil :which-key "test")
  "h" '(nil :which-key "help"))
 
@@ -238,6 +239,16 @@
  :keymaps 'override
  :prefix "SPC"
  "c" 'comment-or-uncomment-region)
+
+
+(general-define-key
+ :states '(normal visual emacs)
+ :keymaps 'override
+ :prefix "SPC d"
+ "h" 'dap-hydra
+ "r" 'dap-debug-recent
+ "l" 'dap-debug-last
+ "d" 'dap-debug)
 
 
 (general-define-key
@@ -262,7 +273,7 @@
  :states '(normal visual emacs)
  :keymaps 'override
  :prefix "g"
- "h" 'lsp-ui-doc-show
+ "h" 'lsp-ui-doc-glance
  "d" 'lsp-ui-peek-find-definitions
  "r" 'lsp-ui-peek-find-references
  "b" 'evil-jump-backward)
@@ -275,3 +286,33 @@
  "C-j" 'evil-window-down
  "C-k" 'evil-window-up
  "C-l" 'evil-window-right)
+
+
+
+
+
+
+
+(defun dap-cppdbg--debug-test-at-point ()
+  (interactive)
+  (dap-debug (dap--template "Rust :: Debug test (at point)")))
+
+
+(defun dap-cppdbg--populate-test-at-point (conf)
+  "Populate CONF with the required arguments."
+  (let ((cwd (lsp-workspace-root)))
+    (plist-put conf :dap-server-path
+	       '("/Users/adamkowalski/.vscode-insiders/extensions/ms-vscode.cpptools-0.28.0-insiders/debugAdapters/OpenDebugAD7"))
+    (plist-put conf :cwd cwd)
+    (plist-put conf :request "launch")
+    (plist-put conf :program (concat cwd "/target/debug/deps/test_parser-3aef394e7183e621"))
+    (plist-put conf :externalTerminal :json-false)
+    (plist-put conf :MIMode "lldb")
+    (plist-put conf :args '("--test" "parse_local_define"))
+    conf))
+
+
+(dap-register-debug-provider "cppdbg" 'dap-cppdbg--populate-test-at-point)
+(dap-register-debug-template "Rust :: Debug test (at point)"
+			     (list :type "cppdbg"
+				   :name "Rust :: Debug test (at point)"))

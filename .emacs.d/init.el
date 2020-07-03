@@ -55,16 +55,10 @@
   (company-idle-delay 0)
   (company-minimum-prefix-length 1)
   :config
-  (company-tng-configure-default)
   (global-company-mode))
 
 
 (use-package general :straight t)
-
-
-(use-package key-chord
-  :straight t
-  :config (key-chord-mode 1))
 
 
 (use-package projectile
@@ -85,6 +79,11 @@
   :hook (dired-mode . all-the-icons-dired-mode))
 
 
+(use-package company-box
+  :straight t
+  :hook (company-mode . company-box-mode))
+
+
 (use-package all-the-icons-dired
   :straight t)
 
@@ -94,6 +93,8 @@
   :custom
   (lsp-prefer-capf t)
   (lsp-semantic-highlighting t)
+  (lsp-lens-auto-enable t)
+  (lsp-headerline-breadcrumb-enable t)
   :commands lsp)
 
 
@@ -113,7 +114,21 @@
 
 (use-package lsp-treemacs
   :straight t
-  :config (lsp-treemacs-sync-mode 1))
+  :config (lsp-treemacs-sync-mode 1)
+  :commands lsp-treemacs-errors-list)
+
+
+(use-package lsp-ivy
+  :straight t
+  :commands lsp-ivy-workspace-symbol)
+
+
+(use-package lsp-python-ms
+  :straight t
+  :custom (lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-python-ms)
+                          (lsp))))
 
 
 (use-package dap-mode
@@ -187,6 +202,12 @@
   :straight t)
 
 
+(use-package evil-escape
+  :straight t
+  :custom (evil-escape-key-sequence "jk")
+  :config (evil-escape-mode))
+
+
 (defun my-before-save-hook ()
   (when (eq major-mode 'rustic-mode)
     (lsp-format-buffer)))
@@ -198,12 +219,20 @@
 (general-def 'motion ";" 'evil-ex)
 
 
-(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
-
-
 (defun find-user-init ()
   (interactive)
   (find-file user-init-file))
+
+
+(defun disable-all-themes ()
+  (dolist (i custom-enabled-themes)
+    (disable-theme i)))
+
+
+(defun switch-theme ()
+  (interactive)
+  (disable-all-themes)
+  (counsel-load-theme))
 
 
 (general-define-key
@@ -222,6 +251,8 @@
  "s" 'eshell
  "S" 'vterm
  "e" 'treemacs
+ "T" 'switch-theme
+ "l" 'lsp-avy-lens
  "d" '(nil :which-key "debug")
  "t" '(nil :which-key "test")
  "h" '(nil :which-key "help"))
@@ -274,6 +305,7 @@
  :keymaps 'override
  :prefix "g"
  "h" 'lsp-ui-doc-glance
+ "H" 'lsp-ui-doc-focus-frame
  "d" 'lsp-ui-peek-find-definitions
  "r" 'lsp-ui-peek-find-references
  "b" 'evil-jump-backward)
@@ -288,8 +320,17 @@
  "C-l" 'evil-window-right)
 
 
+(general-define-key
+ :states '(insert emacs)
+ :keymaps 'override
+ "TAB" 'company-indent-or-complete-common)
 
 
+
+(general-define-key
+ :keymaps 'company-active-map
+ "C-n" 'company-select-next-or-abort
+ "C-p" 'company-select-previous-or-abort)
 
 
 

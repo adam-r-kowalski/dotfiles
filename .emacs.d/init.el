@@ -45,7 +45,9 @@
 
 (use-package evil
   :straight t
-  :custom (evil-want-C-u-scroll t)
+  :custom
+  (evil-want-C-u-scroll t)
+  (evil-want-keybinding nil)
   :config (evil-mode))
 
 
@@ -131,20 +133,14 @@
                           (lsp))))
 
 
+
 (use-package dap-mode
   :straight t)
 
 
-(use-package rustic
-  :straight t
-  :init
-  (setq rustic-lsp-server 'rust-analyzer)
-  :hook (rust-mode . lsp))
-
-
 (use-package exec-path-from-shell
   :straight t
-  :if (memq window-system '(mac ns))
+  :custom (exec-path-from-shell-variables '("PATH" "MANPATH" "CC"))
   :config (exec-path-from-shell-initialize))
 
 
@@ -153,6 +149,7 @@
   :custom
   (ivy-use-virtual-buffers t)
   (enable-recursive-minibuffers t)
+  (ivy-magic-slash-non-match-action nil)
   :config (ivy-mode 1))
 
 
@@ -171,7 +168,7 @@
   (doom-themes-enable-italic t)
   (doom-themes-treemacs-theme "doom-colors")
   :config
-  (load-theme 'doom-gruvbox t)
+  (load-theme 'doom-henna t)
   (doom-themes-org-config)
   (doom-themes-treemacs-config))
 
@@ -208,8 +205,38 @@
   :config (evil-escape-mode))
 
 
+(use-package evil-collection
+  :straight t
+  :custom (evil-collection-company-use-tng nil)
+  :config (evil-collection-init))
+
+
+(use-package smartparens
+  :straight t
+  :config
+  (smartparens-global-mode)
+  (smartparens-strict-mode))
+
+
+(use-package evil-cleverparens
+  :straight t
+  :hook (emacs-lisp-mode . evil-cleverparens-mode))
+
+
+(use-package zig-mode
+  :straight t
+  :hook (zig-mode . (lambda () (lsp)))
+  :config 
+  (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection "zls")
+    :major-modes '(zig-mode)
+    :server-id 'zls)))
+
+
 (defun my-before-save-hook ()
-  (when (eq major-mode 'rustic-mode)
+  (when (eq major-mode 'c++-mode)
     (lsp-format-buffer)))
 
 
@@ -253,6 +280,8 @@
  "e" 'treemacs
  "T" 'switch-theme
  "l" 'lsp-avy-lens
+ "c" 'recompile 
+ "C" 'compile 
  "d" '(nil :which-key "debug")
  "t" '(nil :which-key "test")
  "h" '(nil :which-key "help"))
@@ -261,14 +290,14 @@
 (general-define-key
  :states '(normal emacs)
  :keymaps 'override
- :prefix "SPC"
+ :prefix "g"
  "c" 'comment-line)
 
 
 (general-define-key
  :states '(visual emacs)
  :keymaps 'override
- :prefix "SPC"
+ :prefix "g"
  "c" 'comment-or-uncomment-region)
 
 
@@ -293,21 +322,12 @@
 (general-define-key
  :states '(normal visual emacs)
  :keymaps 'override
- :prefix "SPC t"
- "s" 'rustic-cargo-test
- "n" 'rustic-cargo-current-test
- "l" 'rustic-recompile
- "c" 'rustic-compile)
-
-
-(general-define-key
- :states '(normal visual emacs)
- :keymaps 'override
  :prefix "g"
  "h" 'lsp-ui-doc-glance
  "H" 'lsp-ui-doc-focus-frame
  "d" 'lsp-ui-peek-find-definitions
  "r" 'lsp-ui-peek-find-references
+ "s" 'lsp-ivy-global-workspace-symbol
  "b" 'evil-jump-backward)
 
 
@@ -321,39 +341,33 @@
 
 
 (general-define-key
- :states '(insert emacs)
- :keymaps 'override
- "TAB" 'company-indent-or-complete-common)
-
-
-
-(general-define-key
  :keymaps 'company-active-map
  "C-n" 'company-select-next-or-abort
- "C-p" 'company-select-previous-or-abort)
-
+ "C-p" 'company-select-previous-or-abort
+ "<tab>" 'company-select-next-or-abort
+ "S-<tab>" 'company-select-previous-or-abort)
 
 
 (defun dap-cppdbg--debug-test-at-point ()
   (interactive)
-  (dap-debug (dap--template "Rust :: Debug test (at point)")))
+  (dap-debug (dap--template "cppdbg :: Debug test (at point)")))
 
 
 (defun dap-cppdbg--populate-test-at-point (conf)
   "Populate CONF with the required arguments."
   (let ((cwd (lsp-workspace-root)))
     (plist-put conf :dap-server-path
-	       '("/Users/adamkowalski/.vscode-insiders/extensions/ms-vscode.cpptools-0.28.0-insiders/debugAdapters/OpenDebugAD7"))
+	       '("/Users/adamkowalski/.vscode-insiders/extensions/ms-vscode.cpptools-0.28.3/debugAdapters/OpenDebugAD7"))
     (plist-put conf :cwd cwd)
     (plist-put conf :request "launch")
-    (plist-put conf :program (concat cwd "/target/debug/deps/test_parser-3aef394e7183e621"))
+    (plist-put conf :program (concat cwd "/zig-cache/o/GmcdCX-JXuVXc1CpbdOb81ACFNuOWE8R9K2CkHnfgAAxMfVczhgcHpQbPdBqpUs6/test"))
     (plist-put conf :externalTerminal :json-false)
     (plist-put conf :MIMode "lldb")
-    (plist-put conf :args '("--test" "parse_local_define"))
     conf))
 
 
 (dap-register-debug-provider "cppdbg" 'dap-cppdbg--populate-test-at-point)
-(dap-register-debug-template "Rust :: Debug test (at point)"
+(dap-register-debug-template "cppdgb :: Debug test (at point)"
 			     (list :type "cppdbg"
-				   :name "Rust :: Debug test (at point)"))
+				   :name "cppdbg :: Debug test (at point)"))
+

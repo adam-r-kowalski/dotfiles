@@ -1,7 +1,0 @@
-{
-	"python.linting.enabled": true,
-	"python.jediEnabled": false,
-	"python.linting.pylintEnabled": true,
-	"python.linting.mypyEnabled": true,
-	"coc.preferences.formatOnSaveFiletypes": ["rust"]
-}

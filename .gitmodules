@@ -1,0 +1,57 @@
+[submodule ".vim/pack/plugins/start/coc-clangd"]
+	path = .vim/pack/plugins/start/coc-clangd
+	url = https://github.com/clangd/coc-clangd
+[submodule ".vim/pack/plugins/start/coc-explorer"]
+	path = .vim/pack/plugins/start/coc-explorer
+	url = https://github.com/weirongxu/coc-explorer
+[submodule ".vim/pack/plugins/start/coc-git"]
+	path = .vim/pack/plugins/start/coc-git
+	url = https://github.com/neoclide/coc-git
+[submodule ".vim/pack/plugins/start/coc-json"]
+	path = .vim/pack/plugins/start/coc-json
+	url = https://github.com/neoclide/coc-json
+[submodule ".vim/pack/plugins/start/coc-lists"]
+	path = .vim/pack/plugins/start/coc-lists
+	url = https://github.com/neoclide/coc-lists
+[submodule ".vim/pack/plugins/start/coc-pairs"]
+	path = .vim/pack/plugins/start/coc-pairs
+	url = https://github.com/neoclide/coc-pairs
+[submodule ".vim/pack/plugins/start/coc.nvim"]
+	path = .vim/pack/plugins/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
+[submodule ".vim/pack/plugins/start/lightline.vim"]
+	path = .vim/pack/plugins/start/lightline.vim
+	url = https://github.com/itchyny/lightline.vim
+[submodule ".vim/pack/plugins/start/nerdcommenter"]
+	path = .vim/pack/plugins/start/nerdcommenter
+	url = https://github.com/preservim/nerdcommenter
+[submodule ".vim/pack/plugins/start/nord-vim"]
+	path = .vim/pack/plugins/start/nord-vim
+	url = https://github.com/arcticicestudio/nord-vim
+[submodule ".vim/pack/plugins/start/vim-cpp-enhanced-highlight"]
+	path = .vim/pack/plugins/start/vim-cpp-enhanced-highlight
+	url = https://github.com/octol/vim-cpp-enhanced-highlight
+[submodule ".vim/pack/plugins/start/vim-devicons"]
+	path = .vim/pack/plugins/start/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons
+[submodule ".vim/pack/plugins/start/vim-dispatch"]
+	path = .vim/pack/plugins/start/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch
+[submodule ".vim/pack/plugins/start/vim-fugitive"]
+	path = .vim/pack/plugins/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule ".vim/pack/plugins/start/vim-which-key"]
+	path = .vim/pack/plugins/start/vim-which-key
+	url = https://github.com/liuchengxu/vim-which-key
+[submodule ".vim/pack/plugins/start/vimspector"]
+	path = .vim/pack/plugins/start/vimspector
+	url = https://github.com/puremourning/vimspector
+[submodule ".local/share/nvim/site/palenight.vim"]
+	path = .local/share/nvim/site/palenight.vim
+	url = https://github.com/drewtempelmeyer/palenight.vim
+[submodule ".local/share/nvim/site/pack/palenight.vim"]
+	path = .local/share/nvim/site/pack/palenight.vim
+	url = https://github.com/drewtempelmeyer/palenight.vim
+[submodule ".local/share/nvim/site/pack/palenight/start/palenight.vim"]
+	path = .local/share/nvim/site/pack/palenight/start/palenight.vim
+	url = https://github.com/drewtempelmeyer/palenight.vim

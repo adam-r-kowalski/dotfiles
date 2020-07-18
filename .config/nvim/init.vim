@@ -3,10 +3,16 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'neovim/nvim-lsp'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete-lsp'
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
 Plug 'vim-test/vim-test'
 Plug 'ziglang/zig.vim'
+Plug 'psliwka/vim-smoothie'
+Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 set termguicolors
@@ -23,6 +29,23 @@ set clipboard^=unnamed,unnamedplus
 
 set inccommand=split
 
+set splitright
+set splitbelow
+
+let g:deoplete#enable_at_startup = 1
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ deoplete#manual_complete()
+
+let mapleader=' '
+
+inoremap jk <esc>
 nnoremap ; :
 
 nnoremap <c-h> <c-w>h
@@ -37,9 +60,12 @@ nnoremap <silent> gh <cmd>lua vim.lsp.buf.hover()<cr>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<cr>
 nnoremap <silent> g0 <cmd>lua vim.lsp.buf.document_symbol()<cr>
 
-let mapleader=' '
-
+nnoremap <leader>e :NERDTreeToggle<cr>
 nnoremap <leader>c :cclose<cr>
+nnoremap <leader>i :vs ~/.config/nvim/init.vim<cr>
+nnoremap <leader>I :so %<cr>
+nnoremap <leader>s :term<cr>
+nnoremap <leader>v :Git<cr>
 
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>g :Rg<cr>

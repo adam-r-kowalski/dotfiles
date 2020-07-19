@@ -3,8 +3,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'neovim/nvim-lsp'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-lsp'
+Plug 'nvim-lua/completion-nvim'
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
 Plug 'vim-test/vim-test'
@@ -13,6 +12,7 @@ Plug 'psliwka/vim-smoothie'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
+Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 set termguicolors
@@ -31,17 +31,6 @@ set inccommand=split
 
 set splitright
 set splitbelow
-
-let g:deoplete#enable_at_startup = 1
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ deoplete#manual_complete()
 
 let mapleader=' '
 
@@ -69,6 +58,7 @@ nnoremap <leader>v :Git<cr>
 
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>g :Rg<cr>
+nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>p :Commands<cr>
 
 nnoremap <silent> <leader>tn :TestNearest<cr>
@@ -81,6 +71,12 @@ tnoremap <expr> <c-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
 let test#custom_runners = {'zig': ['zigtest']}
 
+autocmd BufEnter * lua require'completion'.on_attach()
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
+
 lua << EOF
   local nvim_lsp = require'nvim_lsp'
 
@@ -89,3 +85,4 @@ lua << EOF
   nvim_lsp.jsonls.setup{}
   nvim_lsp.zls.setup{}
 EOF
+

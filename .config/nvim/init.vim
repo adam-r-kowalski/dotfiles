@@ -13,6 +13,9 @@ Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
+Plug 'luochen1990/rainbow'
+Plug 'tpope/vim-commentary'
+Plug 'puremourning/vimspector', {'do': './install_gadget.py --all --disable-tcl'}
 call plug#end()
 
 set termguicolors
@@ -24,17 +27,24 @@ let g:airline_theme = "palenight"
 let g:airline_powerline_fonts = 1
 
 set mouse=a
-set relativenumber
+set number relativenumber
 set clipboard^=unnamed,unnamedplus
+
+set expandtab
+set shiftwidth=4
 
 set inccommand=split
 
 set splitright
 set splitbelow
 
+set signcolumn=yes
+
 let mapleader=' '
 
 inoremap jk <esc>
+tnoremap jk <c-\><c-n>
+
 nnoremap ; :
 
 nnoremap <c-h> <c-w>h
@@ -71,6 +81,8 @@ tnoremap <expr> <c-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
 let test#custom_runners = {'zig': ['zigtest']}
 
+let g:rainbow_active = 1
+
 autocmd BufEnter * lua require'completion'.on_attach()
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -85,4 +97,8 @@ lua << EOF
   nvim_lsp.jsonls.setup{}
   nvim_lsp.zls.setup{}
 EOF
+
+let g:vimspector_enable_mappings = 'HUMAN'
+
+nnoremap <f2> :VimspectorReset<cr>
 

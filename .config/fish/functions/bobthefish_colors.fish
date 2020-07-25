@@ -1,16 +1,16 @@
-function bobthefish_colors -S -d 'palenight'
-      set -l bg           292d3e
-      set -l current_line ffcc00
-      set -l selection    607c8b
-      set -l fg           959dcb
+function bobthefish_colors -S -d 'gruvbox-material'
+      set -l bg           282828
+      set -l current_line d4be98
+      set -l selection    d4be98 
+      set -l fg           282828 
       set -l comment      82aaff
-      set -l cyan         89ddff
-      set -l green        c3e88d
-      set -l blue         82aaff
-      set -l white        d0d0d0
-      set -l magenta      c792ea
-      set -l red          f07178
-      set -l yellow       ffcb6b
+      set -l cyan         89b482
+      set -l green        a9b665
+      set -l blue         7daea3
+      set -l white        d4be98
+      set -l magenta      d3869b
+      set -l red          ea6962
+      set -l yellow       e78a4e
 
       set -x color_initial_segment_exit  $fg $red  --bold
       set -x color_initial_segment_su    $fg $magenta --bold
@@ -26,9 +26,9 @@ function bobthefish_colors -S -d 'palenight'
       set -x color_repo_dirty            $red $bg
       set -x color_repo_staged           $yellow $bg
 
-      set -x color_vi_mode_default       $bg $yellow --bold
+      set -x color_vi_mode_default       $blue $bg --bold
       set -x color_vi_mode_insert        $green $bg --bold
-      set -x color_vi_mode_visual        $yellow $bg --bold
+      set -x color_vi_mode_visual        $magenta $bg --bold
 
       set -x color_vagrant               $blue $bg --bold
       set -x color_k8s                   $green $fg --bold

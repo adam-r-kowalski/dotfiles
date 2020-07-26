@@ -1,16 +1,16 @@
 function bobthefish_colors -S -d 'gruvbox-material'
-      set -l bg           282828
+      set -l bg           ebdbb2
       set -l current_line d4be98
-      set -l selection    d4be98 
-      set -l fg           282828 
+      set -l selection    ebdbb2
+      set -l fg           272727
       set -l comment      82aaff
-      set -l cyan         89b482
-      set -l green        a9b665
-      set -l blue         7daea3
-      set -l white        d4be98
-      set -l magenta      d3869b
-      set -l red          ea6962
-      set -l yellow       e78a4e
+      set -l cyan         689d69
+      set -l green        989719
+      set -l blue         448488
+      set -l white        a89983
+      set -l magenta      b16185
+      set -l red          cc231c
+      set -l yellow       d79920
 
       set -x color_initial_segment_exit  $fg $red  --bold
       set -x color_initial_segment_su    $fg $magenta --bold

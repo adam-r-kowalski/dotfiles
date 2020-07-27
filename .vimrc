@@ -1,6 +1,5 @@
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'dag/vim-fish'
@@ -16,6 +15,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-repeat'
 Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --all' }
 Plug 'puremourning/vimspector', { 'do': 'python install_gadget.py --all --disable-tcl' }
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 set encoding=utf-8
@@ -43,8 +43,6 @@ let g:asmsyntax = 'nasm'
 
 let test#custom_runners = {'zig': ['zigtest']}
 
-let g:airline_powerline_fonts = 1
-
 let g:rainbow_active = 1
 
 let g:mapleader=' '
@@ -64,6 +62,8 @@ let g:ycm_language_server =
   \ ]
 
 let g:vimspector_enable_mappings = 'HUMAN'
+
+let g:airline_powerline_fonts = 1
 
 inoremap <special> <Esc> <Esc>hl
 

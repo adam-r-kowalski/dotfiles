@@ -7,7 +7,15 @@ Plug 'dag/vim-fish'
 Plug 'ziglang/zig.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'vim-test/vim-test'
+Plug 'tpope/vim-fugitive'
+Plug 'jiangmiao/auto-pairs'
+Plug 'luochen1990/rainbow'
+Plug 'tpope/vim-commentary'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-repeat'
 Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --all' }
+Plug 'puremourning/vimspector', { 'do': 'python install_gadget.py --all --disable-tcl' }
 call plug#end()
 
 set encoding=utf-8
@@ -25,18 +33,37 @@ set mouse=a
 
 set completeopt+=popup
 
+set expandtab shiftwidth=4
+
+set splitright splitbelow
+
+set signcolumn=yes
+
+let g:asmsyntax = 'nasm'
+
+let test#custom_runners = {'zig': ['zigtest']}
+
 let g:airline_powerline_fonts = 1
+
+let g:rainbow_active = 1
 
 let g:mapleader=' '
 
 let g:ycm_language_server = 
   \ [ 
   \   {
+  \     'name': 'pyls',
+  \     'cmdline': [ 'pyls' ],
+  \     'filetypes': [ 'python' ],
+  \   },
+  \   {
   \     'name': 'zls',
   \     'cmdline': [ 'zls' ],
   \     'filetypes': [ 'zig' ],
   \   }
   \ ]
+
+let g:vimspector_enable_mappings = 'HUMAN'
 
 inoremap <special> <Esc> <Esc>hl
 
@@ -58,11 +85,22 @@ nnoremap <leader>s :term<cr>
 nnoremap <leader>i :e ~/.vimrc<cr>
 nnoremap <leader>I :so %<cr>
 nnoremap <leader>e :NERDTreeToggle<cr>
+nnoremap <leader>v :Git<cr>
 
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>g :Rg<cr>
+nnoremap <leader>p :Commands<cr>
+nnoremap <leader>tn :TestNearest<cr>
+nnoremap <leader>tf :TestFile<cr>
+nnoremap <leader>ts :TestSuite<cr>
+nnoremap <leader>tl :TestLast<cr>
+nnoremap <leader>tv :TestVisit<cr>
 
 nnoremap gb <c-o>
 nnoremap gd :YcmCompleter GoToDefinition<cr>
 nnoremap gr :YcmCompleter GoToReferences<cr>
+
+nnoremap <f2> :VimspectorReset<cr>
+
+nmap s <Plug>(easymotion-overwin-f2)

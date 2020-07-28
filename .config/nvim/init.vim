@@ -4,6 +4,8 @@ Plug 'ziglang/zig.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
+Plug 'vim-test/vim-test'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 let g:coc_global_extensions = [
@@ -114,6 +116,7 @@ nnoremap <Leader>f :<c-u>CocCommand fzf-preview.ProjectFiles<cr>
 nnoremap <Leader>g :<c-u>CocCommand fzf-preview.ProjectGrep 
 nnoremap <Leader>b :<c-u>CocCommand fzf-preview.Buffers<cr>
 nnoremap <leader>e :<c-u>CocCommand explorer<cr>
+nnoremap <leader>v :Git<cr>
 
 nnoremap <leader>i :e ~/.config/nvim/init.vim<cr>
 

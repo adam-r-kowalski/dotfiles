@@ -6,6 +6,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'vim-test/vim-test'
 Plug 'tpope/vim-fugitive'
+Plug 'psliwka/vim-smoothie'
+Plug 'luochen1990/rainbow'
+Plug 'puremourning/vimspector', {'do': 'python install_gadget.py --all --disable-tcl'}
+Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 let g:coc_global_extensions = [
@@ -44,6 +48,10 @@ set shortmess+=c
 set signcolumn=yes
 
 set expandtab shiftwidth=4
+
+set inccommand=nosplit
+
+let g:rainbow_active = 1
 
 nnoremap ; :
 
@@ -117,12 +125,23 @@ nnoremap <Leader>g :<c-u>CocCommand fzf-preview.ProjectGrep
 nnoremap <Leader>b :<c-u>CocCommand fzf-preview.Buffers<cr>
 nnoremap <leader>e :<c-u>CocCommand explorer<cr>
 nnoremap <leader>v :Git<cr>
+nnoremap <leader>tn :TestNearest<cr>
+nnoremap <leader>tf :TestFile<cr>
+nnoremap <leader>tl :TestLast<cr>
+nnoremap <leader>ts :TestSuite<cr>
+nnoremap <leader>tv :TestVisit<cr>
 
 nnoremap <leader>i :e ~/.config/nvim/init.vim<cr>
 
 inoremap jk <esc>
+tnoremap jk <c-\><c-n>
 
 nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
+
+nmap s <Plug>(easymotion-overwin-f2)
+
+let test#strategy = "neovim"
+let test#python#pytest#options = '-s'

@@ -10,6 +10,7 @@ Plug 'psliwka/vim-smoothie'
 Plug 'luochen1990/rainbow'
 Plug 'puremourning/vimspector', {'do': 'python install_gadget.py --all --disable-tcl'}
 Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-commentary'
 call plug#end()
 
 let g:coc_global_extensions = [

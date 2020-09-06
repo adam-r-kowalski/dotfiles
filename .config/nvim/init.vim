@@ -1,5 +1,5 @@
 call plug#begin(stdpath('data') . '/plugged')
-Plug 'arcticicestudio/nord-vim'
+Plug 'Rigellute/rigel'
 Plug 'vim-airline/vim-airline'
 Plug 'ziglang/zig.vim'
 Plug 'neovim/nvim-lsp'
@@ -20,7 +20,7 @@ call plug#end()
 
 set termguicolors
 set background=dark
-colorscheme nord
+colorscheme rigel
 
 let g:airline_powerline_fonts = 1
 
@@ -48,7 +48,7 @@ set inccommand=nosplit
 
 let test#strategy = "neovim"
 let test#python#pytest#options = '-s'
-let test#custom_runners = {'zig': ['zigtest']} 
+let test#custom_runners = {'zig': ['zigtest']}
 
 let g:asmsyntax = 'nasm'
 
@@ -65,16 +65,9 @@ tnoremap jk <c-\><c-n>
 
 nnoremap ; :
 
-inoremap <c-h> <esc><c-w>h
 nnoremap <c-h> <c-w>h
-
-inoremap <c-j> <esc><c-w>j
 nnoremap <c-j> <c-w>j
-
-inoremap <c-k> <esc><c-w>k
 nnoremap <c-k> <c-w>k
-
-inoremap <c-l> <esc><c-w>l
 nnoremap <c-l> <c-w>l
 
 nnoremap <leader>i :e ~/.config/nvim/init.vim<cr>
@@ -112,7 +105,6 @@ nmap s <Plug>(easymotion-overwin-f2)
 
 lua << EOF
     local nvim_lsp = require'nvim_lsp'
-    
     nvim_lsp.zls.setup{}
     nvim_lsp.pyls.setup{}
     nvim_lsp.vimls.setup{}

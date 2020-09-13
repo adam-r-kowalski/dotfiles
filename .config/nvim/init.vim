@@ -4,6 +4,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'ziglang/zig.vim'
 Plug 'neovim/nvim-lsp'
 Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -35,6 +36,7 @@ let g:mapleader=' '
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 autocmd BufEnter * lua require'completion'.on_attach()
+autocmd BufEnter * lua require'diagnostic'.on_attach()
 
 set completeopt=menuone,noinsert,noselect
 

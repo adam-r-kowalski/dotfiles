@@ -221,7 +221,20 @@
 
 (defun zig-test-nearest ()
   (interactive)
-  (compile (concat (zig-test-file-string) " --test-filter \"intrinsic add-i64\"")))
+  (let* ((symbols (lsp--get-document-symbols))
+	 (line-number (line-number-at-pos))
+	 (nearest-test (->> symbols
+			    (-filter
+			     (lambda (symbol)
+			       (let* ((range (gethash "range" symbol))
+				      (start-line (->> range (gethash "start") (gethash "line")))
+				      (end-line (->> range (gethash "end") (gethash "line"))))
+				 (<= start-line line-number end-line))))
+			    (-map (lambda (symbol) (gethash "name" symbol)))
+			    (car))))
+    (if nearest-test
+	(compile (concat (zig-test-file-string) " --test-filter \"" nearest-test "\""))
+      (message "Cursor is not in a test block"))))
 
 (general-nmap
   :prefix "SPC t"
@@ -230,8 +243,3 @@
   "f" 'zig-test-file
   "n" 'zig-test-nearest
   "l" 'recompile)
-
-
-(defun get-symbols ()
-  (interactive)
-  (setq symbols (lsp--get-document-symbols)))

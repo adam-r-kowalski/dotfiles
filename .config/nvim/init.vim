@@ -20,6 +20,7 @@ let g:coc_global_extensions = [
   \'coc-pairs',
   \'coc-explorer',
   \'coc-fzf-preview',
+  \'coc-highlight',
   \]
 
 set termguicolors

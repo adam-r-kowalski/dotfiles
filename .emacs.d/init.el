@@ -19,13 +19,18 @@
       display-line-numbers-type 'relative
       gc-cons-threshold (* 1024 1024 100)
       read-process-output-max (* 1024 1024)
-      inhibit-splash-screen t)
+      inhibit-splash-screen t
+      auto-save-default nil
+      make-backup-files nil
+      org-latex-compiler "xelatex")
 
 (global-display-line-numbers-mode 1)
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(display-battery-mode 1)
+(display-time-mode 1)
 
 (set-face-attribute 'default nil :font "Agave Nerd Font" :height 180)
 
@@ -73,11 +78,18 @@
 (use-package avy
   :custom (avy-timeout-seconds 0.2))
 
+(use-package helpful)
+
 (general-nmap
   ";" 'evil-ex
   "s" 'avy-goto-char-timer
-  "? k" 'describe-key
-  "? v" 'describe-variable
+  "? k" 'helpful-key
+  "? v" 'helpful-variable
+  "? c" 'helpful-callable
+  "? f" 'helpful-function
+  "? m" 'helpful-macro
+  "? p" 'helpful-at-point
+  "? C" 'helpful-command
   "C-h" 'evil-window-left
   "C-j" 'evil-window-down
   "C-k" 'evil-window-up
@@ -116,7 +128,8 @@
 
 (use-package treemacs-evil)
 
-(use-package treemacs)
+(use-package treemacs
+  :custom (treemacs-position 'right))
 
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
@@ -141,28 +154,20 @@
 (general-define-key
  :keymaps 'normal
  :prefix "g"
+ "b" 'evil-jump-backward
  "d" 'lsp-ui-peek-find-definitions
  "r" 'lsp-ui-peek-find-references
+ "c" 'comment-line)
+
+(general-define-key
+ :keymaps 'visual
+ :prefix "g"
  "c" 'comment-or-uncomment-region)
 
 (general-define-key
  :keymaps 'company-active-map
  "C-n" 'company-select-next-or-abort
  "C-p" 'company-select-previous-or-abort)
-
-(use-package doom-themes
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t)
-  (doom-themes-treemacs-theme "doom-colors")
-  :config
-  (load-theme 'doom-flatwhite t)
-  (doom-themes-org-config)
-  (doom-themes-treemacs-config))
-
-(use-package doom-modeline
-  :custom (doom-modeline-project-detection 'relative-from-project)
-  :config (doom-modeline-mode 1))
 
 (use-package smartparens
   :config
@@ -188,6 +193,18 @@
   (ivy-use-virtual-buffers t)
   (enable-recursive-minibuffers t)
   :config (ivy-mode 1))
+
+(use-package ivy-rich
+  :init (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+  :config (ivy-rich-mode 1))
+
+(use-package ivy-posframe
+  :custom
+  (ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
+  :config (ivy-posframe-mode 1))
+
+(use-package rainbow-delimiters
+  :hook ((prog-mode . rainbow-delimiters-mode)))
 
 (use-package vterm)
 
@@ -230,11 +247,18 @@
 				      (start-line (->> range (gethash "start") (gethash "line")))
 				      (end-line (->> range (gethash "end") (gethash "line"))))
 				 (<= start-line line-number end-line))))
-			    (-map (lambda (symbol) (gethash "name" symbol)))
 			    (car))))
     (if nearest-test
-	(compile (concat (zig-test-file-string) " --test-filter \"" nearest-test "\""))
+	(let ((name (gethash "name" nearest-test)))
+	  (setq zig-last-run-test-file (buffer-file-name)
+		zig-last-run-test-line line-number)
+	  (compile (concat (zig-test-file-string) " --test-filter \"" name "\"")))
       (message "Cursor is not in a test block"))))
+
+(defun zig-test-visit ()
+  (interactive)
+  (find-file zig-last-run-test-file)
+  (goto-line zig-last-run-test-line))
 
 (general-nmap
   :prefix "SPC t"
@@ -242,4 +266,19 @@
   "s" 'zig-test-suite
   "f" 'zig-test-file
   "n" 'zig-test-nearest
-  "l" 'recompile)
+  "l" 'recompile
+  "v" 'zig-test-visit)
+
+(use-package doom-themes
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
+  (doom-themes-treemacs-theme "doom-colors")
+  :config
+  (load-theme 'doom-nord t)
+  (doom-themes-org-config)
+  (doom-themes-treemacs-config))
+
+(use-package doom-modeline
+  :custom (doom-modeline-project-detection 'relative-from-project)
+  :config (doom-modeline-mode 1))

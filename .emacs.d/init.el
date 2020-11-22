@@ -32,7 +32,7 @@
 (display-battery-mode 1)
 (display-time-mode 1)
 
-(set-face-attribute 'default nil :font "Agave Nerd Font" :height 180)
+(set-face-attribute 'default nil :font "FantasqueSansMono Nerd Font" :height 200)
 
 (use-package evil
   :custom
@@ -147,9 +147,11 @@
   "x" 'counsel-M-x
   "e" 'treemacs
   "v" 'magit
-  "s" 'vterm
+  "V" 'vterm
+  "S" 'eshell
   "T" 'counsel-load-theme
-  "t" '(nil :which-key "test"))
+  "t" '(nil :which-key "test")
+  "r" 'lsp-rename)
 
 (general-define-key
  :keymaps 'normal
@@ -282,3 +284,17 @@
 (use-package doom-modeline
   :custom (doom-modeline-project-detection 'relative-from-project)
   :config (doom-modeline-mode 1))
+
+(use-package org-bullets
+  :hook ((org-mode . org-bullets-mode)))
+
+(use-package clojure-mode)
+
+(use-package dired-single)
+
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+
+(general-nmap
+  :keymaps 'dired-mode-map
+  "h" 'dired-single-up-directory
+  "l" 'dired-single-buffer)

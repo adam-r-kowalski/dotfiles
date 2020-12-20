@@ -6,6 +6,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'neovim/nvim-lsp'
 Plug 'nvim-lua/completion-nvim'
 Plug 'vim-test/vim-test'
+Plug 'tpope/vim-fugitive'
 Plug 'rust-lang/rust.vim'
 call plug#end()
 
@@ -43,6 +44,7 @@ nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>ts :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tv :TestVisit<CR>
+nnoremap <leader>v :Git<CR>
 
 autocmd BufEnter * lua require'completion'.on_attach()
 

@@ -210,6 +210,23 @@
 
 (use-package vterm)
 
+(use-package xterm-color
+  :custom (compilation-environment '("TERM=xterm-256color"))
+  :config (advice-add 'compilation-filter :around
+		      (lambda (f proc string)
+			(funcall f proc (xterm-color-filter string)))))
+
+(use-package rust-mode
+  :hook ((rust-mode . lsp))
+  :config
+  (add-hook 'before-save-hook
+	    (lambda () (when (eq 'rust-mode major-mode) (lsp-format-buffer)))))
+
+(general-nmap
+  :prefix "SPC t"
+  :keymaps 'rust-mode-map
+  "l" 'recompile)
+
 (use-package zig-mode
   :hook ((zig-mode . lsp))
   :custom (zig-format-on-save nil)

@@ -1,5 +1,5 @@
 call plug#begin(stdpath('data') . '/plugged')
-Plug 'Rigellute/rigel'
+Plug 'ghifarit53/tokyonight-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'neovim/nvim-lsp'
 Plug 'nvim-lua/completion-nvim'
@@ -18,7 +18,18 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'rust-lang/rust.vim'
 Plug 'guns/vim-clojure-static'
+Plug 'ziglang/zig.vim'
 call plug#end()
+
+let g:airline_powerline_fonts = 1
+let g:mapleader = ' '
+let test#strategy = "floaterm"
+let test#custom_runners = {'zig': ['Zigtest']}
+let g:floaterm_width = 0.8
+let g:floaterm_height = 0.8
+let g:markdown_fenced_languages = ['clojure']
+let g:tokyonight_style = 'night'
+let g:tokyonight_enable_italic = 1
 
 set termguicolors
 set mouse=a
@@ -28,19 +39,12 @@ set noshowmode
 set number
 set relativenumber
 set clipboard^=unnamed,unnamedplus
+set expandtab
 
 syntax enable
-colorscheme rigel
+colorscheme tokyonight
 
 filetype plugin indent on
-
-let g:airline_powerline_fonts = 1
-let g:mapleader = ' '
-let test#strategy = "floaterm"
-let g:floaterm_width = 0.8
-let g:floaterm_height = 0.8
-let g:floaterm_autoclose = 1
-let g:markdown_fenced_languages = ['clojure']
 
 nnoremap ; :
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -78,14 +82,5 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-lua <<EOF
-require'lspconfig'.rust_analyzer.setup{}
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true,
-  },
-}
-EOF
+lua require('lsp_config')
 

@@ -32,7 +32,7 @@
 (display-battery-mode 1)
 (display-time-mode 1)
 
-(set-face-attribute 'default nil :font "FantasqueSansMono Nerd Font" :height 200)
+(set-face-attribute 'default nil :font "Hurmit Nerd Font" :height 160)
 
 (use-package evil
   :custom
@@ -45,6 +45,8 @@
 (use-package evil-collection
   :after evil
   :config (evil-collection-init))
+
+(use-package evil-multiedit)
 
 (use-package magit)
 
@@ -288,13 +290,19 @@
   "l" 'recompile
   "v" 'zig-test-visit)
 
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+			 (require 'lsp-pyright)
+			 (lsp))))
+
 (use-package doom-themes
   :custom
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
   (doom-themes-treemacs-theme "doom-colors")
   :config
-  (load-theme 'doom-nord t)
+  (load-theme 'doom-moonlight t)
   (doom-themes-org-config)
   (doom-themes-treemacs-config))
 

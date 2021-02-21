@@ -249,7 +249,7 @@
   (let* ((root (lsp-workspace-root))
 	 (name (file-name-nondirectory root))
 	 (test-name (file-relative-name (buffer-file-name) root)))
-    (concat "cd " root " && zig test -femit-bin=output --pkg-begin " name " src/" name ".zig " test-name)))
+    (concat "cd " root " && zig test -femit-bin=temp/output --pkg-begin " name " src/" name ".zig " test-name)))
 
 (defun zig-test-file ()
   (interactive)
@@ -335,7 +335,7 @@
 (dap-register-debug-template "Debug Zig"
   (list :type "codelldb"
         :request "launch"
-        :program "output"
+        :program "temp/output"
         :args '("/Users/adamkowalski/zig/build/zig")
         :cwd "/Users/adamkowalski/code/lang"
         :externalConsole nil

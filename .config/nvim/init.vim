@@ -19,6 +19,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'rust-lang/rust.vim'
 Plug 'guns/vim-clojure-static'
 Plug 'ziglang/zig.vim'
+Plug 'puremourning/vimspector'
 call plug#end()
 
 let g:airline_powerline_fonts = 1
@@ -30,6 +31,7 @@ let g:floaterm_height = 0.8
 let g:markdown_fenced_languages = ['clojure']
 let g:tokyonight_style = 'night'
 let g:tokyonight_enable_italic = 1
+let g:vimspector_install_gadgets = ['CodeLLDB']
 
 set termguicolors
 set mouse=a
@@ -40,6 +42,7 @@ set number
 set relativenumber
 set clipboard^=unnamed,unnamedplus
 set expandtab
+set signcolumn=yes
 
 syntax enable
 colorscheme tokyonight
@@ -51,28 +54,40 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 nnoremap gb <c-o>
 nnoremap gn <c-^>
-nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap gh <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap gd <cmd>lua vim.lsp.buf.definition()<cr>
+nnoremap gr <cmd>lua vim.lsp.buf.references()<cr>
+nnoremap gh <cmd>lua vim.lsp.buf.hover()<cr>
 nnoremap <leader>i :e ~/.config/nvim/init.vim<cr>
 nnoremap <leader>f :FloatermNew fzf<cr>
 nnoremap <leader>e :FloatermNew nnn -e<cr>
 nnoremap <leader>g :Rg<cr>
-nnoremap <leader>tn :TestNearest<CR>
-nnoremap <leader>tf :TestFile<CR>
-nnoremap <leader>ts :TestSuite<CR>
-nnoremap <leader>tl :TestLast<CR>
-nnoremap <leader>tv :TestVisit<CR>
-nnoremap <leader>v :Git<CR>
-nnoremap <leader>sc :FloatermNew<CR>
-nnoremap <leader>st :FloatermToggle<CR>
-nnoremap <leader>sn :FloatermNext<CR>
-nnoremap <leader>sp :FloatermPrev<CR>
+nnoremap <leader>tn :TestNearest<cr>
+nnoremap <leader>tf :TestFile<cr>
+nnoremap <leader>ts :TestSuite<cr>
+nnoremap <leader>tl :TestLast<cr>
+nnoremap <leader>tv :TestVisit<cr>
+nnoremap <leader>v :Git<cr>
+nnoremap <leader>sc :FloatermNew<cr>
+nnoremap <leader>st :FloatermToggle<cr>
+nnoremap <leader>sn :FloatermNext<cr>
+nnoremap <leader>sp :FloatermPrev<cr>
 nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 inoremap jk <esc>
+nnoremap <f2> <cmd>call vimspector#ToggleBreakpoint(
+                    \ { 'condition': input( 'Enter condition expression: ' ),
+                    \   'hitCondition': input( 'Enter hit count expression: ' ) }
+                    \ )<cr>
+nnoremap <f3> <cmd>call vimspector#ToggleBreakpoint()<cr>
+nnoremap <f4> <cmd>call vimspector#Launch()<cr>
+nnoremap <f5> <cmd>call vimspector#Reset()<cr>
+nnoremap <f6> <cmd>call vimspector#StepOut()<cr>
+nnoremap <f7> <cmd>call vimspector#StepOver()<cr>
+nnoremap <f8> <cmd>call vimspector#StepInto()<cr>
+nnoremap <f9> <cmd>call vimspector#RunToCursor()<cr>
+nnoremap <f10> <cmd>call vimspector#Continue()<cr>
 
 autocmd BufEnter * lua require'completion'.on_attach()
 autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)

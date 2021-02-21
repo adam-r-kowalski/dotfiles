@@ -50,8 +50,6 @@
 
 (use-package magit)
 
-(use-package evil-magit)
-
 (use-package company
   :custom
   (company-idle-delay 0.0)
@@ -251,7 +249,7 @@
   (let* ((root (lsp-workspace-root))
 	 (name (file-name-nondirectory root))
 	 (test-name (file-relative-name (buffer-file-name) root)))
-    (concat "cd " root " && zig test --pkg-begin " name " src/" name ".zig " test-name)))
+    (concat "cd " root " && zig test -femit-bin=output --pkg-begin " name " src/" name ".zig " test-name)))
 
 (defun zig-test-file ()
   (interactive)
@@ -323,3 +321,22 @@
   :keymaps 'dired-mode-map
   "h" 'dired-single-up-directory
   "l" 'dired-single-buffer)
+
+(use-package dap-mode
+  :init
+  (add-hook 'dap-stopped-hook
+    (lambda (arg) (call-interactively #'dap-hydra)))
+  :config (dap-auto-configure-mode 1))
+
+
+(require 'dap-codelldb)
+
+
+(dap-register-debug-template "Debug Zig"
+  (list :type "codelldb"
+        :request "launch"
+        :program "output"
+        :args '("/Users/adamkowalski/zig/build/zig")
+        :cwd "/Users/adamkowalski/code/lang"
+        :externalConsole nil
+        :name "Debug Zig"))

@@ -32,7 +32,7 @@
 (display-battery-mode 1)
 (display-time-mode 1)
 
-(set-face-attribute 'default nil :font "Hurmit Nerd Font" :height 160)
+(set-face-attribute 'default nil :font "Cascadia Code PL" :height 160)
 
 (use-package evil
   :custom
@@ -136,6 +136,10 @@
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
+(defun compile-example ()
+  (interactive)
+  (compile "cd ~/code/lang; zig build run -Drelease-fast -- examples/main.lang; echo \"\nrunning program\n\" && temp/code; echo \"\nexit code $?\""))
+
 (general-nmap
   :prefix "SPC"
   "p" 'counsel-projectile-switch-project
@@ -147,11 +151,14 @@
   "x" 'counsel-M-x
   "e" 'treemacs
   "v" 'magit
-  "V" 'vterm
-  "S" 'eshell
+  "s" 'eshell
   "T" 'counsel-load-theme
   "t" '(nil :which-key "test")
-  "r" 'lsp-rename)
+  "r" 'lsp-rename
+  "d" 'dap-hydra
+  "z" 'compile-example
+  "c" 'recompile
+  "C" 'compile)
 
 (general-define-key
  :keymaps 'normal

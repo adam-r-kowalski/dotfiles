@@ -1,14 +1,14 @@
 (defvar bootstrap-version
   (let ((bootstrap-file
-	 (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-	(bootstrap-version 5))
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
     (unless (file-exists-p bootstrap-file)
       (with-current-buffer
           (url-retrieve-synchronously
            "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
            'silent 'inhibit-cookies)
-	(goto-char (point-max))
-	(eval-print-last-sexp)))
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage)))
 
 (straight-use-package 'use-package)
@@ -22,10 +22,12 @@
       inhibit-splash-screen t
       auto-save-default nil
       make-backup-files nil
-      org-latex-compiler "xelatex")
+      org-latex-compiler "xelatex"
+      tab-width 2)
+
+(setq-default indent-tabs-mode nil)
 
 (global-display-line-numbers-mode 1)
-
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -34,12 +36,33 @@
 
 (set-face-attribute 'default nil :font "Cascadia Code PL" :height 160)
 
+(use-package ligature
+  :straight (ligature :type git :host github :repo "mickeynp/ligature.el")
+  :config
+  (ligature-set-ligatures 't '("www"))
+  (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
+  (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                                       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                                       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                                       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                                       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                                       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                                       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                                       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                                       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                                       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                                       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                                       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                                       "\\\\" "://"))
+  (global-ligature-mode t))
+
 (use-package evil
   :custom
   (evil-want-C-u-scroll t)
   (evil-want-C-d-scroll t)
   (evil-want-keybinding nil)
   (evil-echo-state nil)
+  (evil-shift-width 2)
   :config (evil-mode 1))
 
 (use-package evil-collection
@@ -140,15 +163,17 @@
   (interactive)
   (compile "cd ~/code/lang; zig build run -Drelease-fast -- examples/main.lang; echo \"\nrunning program\n\" && temp/code; echo \"\nexit code $?\""))
 
+(add-to-list 'auto-mode-alist '("\\.lang\\'" . clojure-mode))
+
 (general-nmap
   :prefix "SPC"
-  "p" 'counsel-projectile-switch-project
-  "f" 'counsel-projectile-find-file
-  "g" 'counsel-projectile-git-grep
-  "." 'counsel-find-file
+  "p" 'projectile-switch-project
+  "f" 'projectile-find-file
+  "g" 'projectile-git-grep
+  "." 'find-file
   "i" 'goto-user-init-file
   "b" 'counsel-switch-buffer
-  "x" 'counsel-M-x
+  "x" 'execute-extended-command
   "e" 'treemacs
   "v" 'magit
   "s" 'eshell
@@ -182,57 +207,45 @@
   :config
   (require 'smartparens-config)
   (smartparens-global-mode))
+  
 
 (use-package evil-cleverparens
   :custom
-  (evil-cleverparens-use-s-and-S nil)
+  (evil-eleverparens-use-s-and-S nil)
   (evil-cleverparens-use-additional-movement-keys nil)
-  :hook ((emacs-lisp-mode . evil-cleverparens-mode)))
+  :hook
+  ((emacs-lisp-mode . evil-cleverparens-mode)
+   (clojure-mode . evil-cleverparens-mode)))
 
 (use-package adjust-parens
-  :hook ((emacs-lisp-mode . adjust-parens-mode)))
+  :hook
+  ((emacs-lisp-mode . adjust-parens-mode)
+   (clojure-mode . adjust-parens-mode)))
+
 
 (general-define-key
- :keymaps 'emacs-lisp-mode-map
+ :keymaps '(clojure-mode-map emacs-lisp-mode-map)
  "TAB" 'list-indent-adjust-parens
  "<backtab>" 'lisp-dedent-adjust-parens)
 
-(use-package ivy
-  :custom
-  (ivy-use-virtual-buffers t)
-  (enable-recursive-minibuffers t)
-  :config (ivy-mode 1))
-
-(use-package ivy-rich
-  :init (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-  :config (ivy-rich-mode 1))
-
-(use-package ivy-posframe
-  :custom
-  (ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
-  :config (ivy-posframe-mode 1))
 
 (use-package rainbow-delimiters
   :hook ((prog-mode . rainbow-delimiters-mode)))
+  
+
+(use-package selectrum
+  :config (selectrum-mode 1))
+
+(use-package selectrum-prescient
+  :config (selectrum-prescient-mode 1))
 
 (use-package vterm)
 
 (use-package xterm-color
   :custom (compilation-environment '("TERM=xterm-256color"))
   :config (advice-add 'compilation-filter :around
-		      (lambda (f proc string)
-			(funcall f proc (xterm-color-filter string)))))
-
-(use-package rust-mode
-  :hook ((rust-mode . lsp))
-  :config
-  (add-hook 'before-save-hook
-	    (lambda () (when (eq 'rust-mode major-mode) (lsp-format-buffer)))))
-
-(general-nmap
-  :prefix "SPC t"
-  :keymaps 'rust-mode-map
-  "l" 'recompile)
+                      (lambda (f proc string)
+                        (funcall f proc (xterm-color-filter string)))))
 
 (use-package zig-mode
   :hook ((zig-mode . lsp))
@@ -246,7 +259,7 @@
     :server-id 'zls))
   :config 
   (add-hook 'before-save-hook
-	    (lambda () (when (eq 'zig-mode major-mode) (lsp-format-buffer)))))
+            (lambda () (when (eq 'zig-mode major-mode) (lsp-format-buffer)))))
 
 (defun zig-test-suite ()
   (interactive)
@@ -254,8 +267,8 @@
 
 (defun zig-test-file-string ()
   (let* ((root (lsp-workspace-root))
-	 (name (file-name-nondirectory root))
-	 (test-name (file-relative-name (buffer-file-name) root)))
+         (name (file-name-nondirectory root))
+         (test-name (file-relative-name (buffer-file-name) root)))
     (concat "cd " root " && zig test -femit-bin=temp/output --pkg-begin " name " src/" name ".zig " test-name)))
 
 (defun zig-test-file ()
@@ -265,20 +278,20 @@
 (defun zig-test-nearest ()
   (interactive)
   (let* ((symbols (lsp--get-document-symbols))
-	 (line-number (line-number-at-pos))
-	 (nearest-test (->> symbols
-			    (-filter
-			     (lambda (symbol)
-			       (let* ((range (gethash "range" symbol))
-				      (start-line (->> range (gethash "start") (gethash "line")))
-				      (end-line (->> range (gethash "end") (gethash "line"))))
-				 (<= start-line line-number end-line))))
-			    (car))))
+         (line-number (line-number-at-pos))
+         (nearest-test (->> symbols
+                            (-filter
+                             (lambda (symbol)
+                               (let* ((range (gethash "range" symbol))
+                                      (start-line (->> range (gethash "start") (gethash "line")))
+                                      (end-line (->> range (gethash "end") (gethash "line"))))
+                                 (<= start-line line-number end-line))))
+                            (car))))
     (if nearest-test
-	(let ((name (gethash "name" nearest-test)))
-	  (setq zig-last-run-test-file (buffer-file-name)
-		zig-last-run-test-line line-number)
-	  (compile (concat (zig-test-file-string) " --test-filter \"" name "\"")))
+        (let ((name (gethash "name" nearest-test)))
+          (setq zig-last-run-test-file (buffer-file-name)
+                zig-last-run-test-line line-number)
+          (compile (concat (zig-test-file-string) " --test-filter \"" name "\"")))
       (message "Cursor is not in a test block"))))
 
 (defun zig-test-visit ()
@@ -298,8 +311,8 @@
 (use-package lsp-pyright
   :ensure t
   :hook (python-mode . (lambda ()
-			 (require 'lsp-pyright)
-			 (lsp))))
+                         (require 'lsp-pyright)
+                         (lsp))))
 
 (use-package doom-themes
   :custom
@@ -307,7 +320,7 @@
   (doom-themes-enable-italic t)
   (doom-themes-treemacs-theme "doom-colors")
   :config
-  (load-theme 'doom-moonlight t)
+  (load-theme 'doom-nord t)
   (doom-themes-org-config)
   (doom-themes-treemacs-config))
 

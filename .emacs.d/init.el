@@ -165,6 +165,10 @@
 
 (add-to-list 'auto-mode-alist '("\\.lang\\'" . clojure-mode))
 
+(defun recompile-interactive ()
+  (interactive)
+  (recompile t))
+
 (general-nmap
   :prefix "SPC"
   "p" 'projectile-switch-project
@@ -183,6 +187,7 @@
   "d" 'dap-hydra
   "z" 'compile-example
   "c" 'recompile
+  "d" 'recompile-interactive
   "C" 'compile)
 
 (general-define-key
@@ -307,6 +312,50 @@
   "n" 'zig-test-nearest
   "l" 'recompile
   "v" 'zig-test-visit)
+
+(defun python-test-suite ()
+  (interactive)
+  (compile (concat "cd " (lsp-workspace-root) " && python -m pytest")))
+
+(defun python-test-file-string ()
+  (let* ((root (lsp-workspace-root))
+         (name (file-name-nondirectory root))
+         (test-name (file-relative-name (buffer-file-name) root)))
+    (concat "cd " root " && python -m pytest -s " test-name)))
+
+(defun python-test-file ()
+  (interactive)
+  (compile (python-test-file-string)))
+
+(defun python-test-nearest ()
+  (interactive)
+  (let* ((symbols (lsp--get-document-symbols))
+         (line-number (line-number-at-pos))
+         (nearest-test (->> symbols
+                            (-filter
+                             (lambda (symbol)
+                               (let* ((range (gethash "range" symbol))
+                                      (start-line (->> range (gethash "start") (gethash "line")))
+                                      (end-line (->> range (gethash "end") (gethash "line"))))
+                                 (<= start-line line-number end-line))))
+                            (car))))
+    (if nearest-test
+        (let ((name (gethash "name" nearest-test)))
+          (setq python-last-run-test-file (buffer-file-name)
+                python-last-run-test-line line-number)
+          (compile (concat (python-test-file-string) "::" name "") t))
+      (message "Cursor is not in a test block"))))
+
+
+(general-nmap
+  :prefix "SPC t"
+  :keymaps 'python-mode-map
+  "s" 'python-test-suite
+  "f" 'python-test-file
+  "n" 'python-test-nearest
+  "l" 'recompile
+  "v" 'zig-test-visit)
+
 
 (use-package lsp-pyright
   :ensure t

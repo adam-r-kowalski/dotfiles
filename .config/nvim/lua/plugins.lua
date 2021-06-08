@@ -2,9 +2,7 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall'
-  use 'nvim-lua/completion-nvim'
-  use 'tjdevries/colorbuddy.nvim'
-  use 'marko-cerovac/material.nvim'
+  use 'hrsh7th/nvim-compe'
   use {
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
@@ -23,7 +21,9 @@ return require('packer').startup(function()
   use 'karb94/neoscroll.nvim'
   use 'glepnir/indent-guides.nvim'
   use 'glepnir/lspsaga.nvim'
-  use 'glepnir/galaxyline.nvim'
   use 'onsails/lspkind-nvim'
   use 'akinsho/nvim-bufferline.lua'
+  use 'hoob3rt/lualine.nvim'
+  use 'marko-cerovac/material.nvim'
+  use 'hrsh7th/vim-vsnip'
 end)

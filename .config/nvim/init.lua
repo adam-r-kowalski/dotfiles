@@ -13,7 +13,7 @@ o.clipboard = [[unnamed,unnamedplus]]
 o.inccommand = 'nosplit'
 o.expandtab = true
 o.showmode = false
-o.completeopt = [[menuone,noinsert,noselect]]
+o.completeopt = [[menuone,noselect]]
 o.updatetime = 300
 o.hidden = true
 o.shiftwidth = 2
@@ -29,24 +29,69 @@ g.nvim_tree_side = 'right'
 g.material_style = 'palenight'
 
 cmd("let g:test#custom_runners = {'zig': ['Zigtest']}")
+cmd([[
+let test#python#runner = 'pytest'
+let test#python#pytest#executable = 'python -m pytest'
+let test#python#pytest#options = '-s'
+]])
 
-cmd('au ColorScheme * hi Normal ctermbg=none guibg=none')
+-- cmd('au ColorScheme * hi Normal ctermbg=none guibg=none')
+
 cmd('syntax on')
+cmd('colorscheme material')
 cmd('autocmd BufWritePost plugins.lua PackerCompile')
-cmd('au BufNewFile,BufRead *.lang setlocal ft=clojure')
-cmd("autocmd BufEnter * lua require 'completion'.on_attach()")
-require('colorbuddy').colorscheme('material')
+cmd('au BufNewFile,BufRead *.ra setlocal ft=clojure')
+
+
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        return true
+    else
+        return false
+    end
+end
+
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif vim.fn.call("vsnip#available", {1}) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    return t "<S-Tab>"
+  end
+end
 
 local options = {noremap=true, silent=true}
-map("i", "<tab>", "pumvisible() ? '<c-n>' : '<tab>'", {noremap=true, expr=true})
-map("i", "<s-tab>", "pumvisible() ? '<c-p>' : '<s-tab>'", {noremap=true, expr=true})
+map("i", "<tab>", "v:lua.tab_complete()", {expr=true})
+map("s", "<tab>", "v:lua.tab_complete()", {expr=true})
+map("i", "<s-tab>", "v:lua.s_tab_complete()", {expr=true})
+map("s", "<s-tab>", "v:lua.s_tab_complete()", {expr=true})
+map("i", "<cr>", "compe#confirm('<cr>')", {silent=true, expr=true})
 map("i", "jk", "<esc>", options)
 map("t", "jk", "<c-\\><c-n>", options)
 map("n", ";", ":", {noremap=true})
 map("n", "<leader>f", "<cmd>lua require('telescope.builtin').find_files()<cr>", options)
 map("n", "<leader>.", "<cmd>lua require('telescope.builtin').file_browser()<cr>", options)
 map("n", "<leader>g", "<cmd>lua require('telescope.builtin').live_grep()<cr>", options)
-map("n", "<leader>b", "<cmd>lua require('telescope.builtin').buffers()<cr>", options)
+map("n", "<leader>bl", "<cmd>lua require('telescope.builtin').buffers()<cr>", options)
+map("n", "<leader>bd", "<cmd>bd!<cr>", options)
 map("n", "<leader>x", "<cmd>lua require('telescope.builtin').commands()<cr>", options)
 map("n", "<leader>dl", "<cmd>lua require('lspsaga.diagnostic').show_line_diagnostics()<cr>", options)
 map("n", "<leader>dc", "<cmd>lua require('lspsaga.diagnostic').show_cursor_diagnostics()<cr>", options)
@@ -75,10 +120,9 @@ map("n", "<leader>tf", "<cmd>TestFile<cr>", options)
 map("n", "<leader>tl", "<cmd>TestLast<cr>", options)
 map("n", "<leader>tv", "<cmd>TestVisit<cr>", options)
 map("n", "<leader>ts", "<cmd>TestSuite<cr>", options)
-map("n", "<leader>tk", "<cmd>bd!<cr>", options)
--- map("n", "<leader>c", "<cmd>FloatermNew zig build run -Drelease-fast -- examples/main.lang; temp/code; echo $status<cr>", options)
-map("n", "<leader>c", "<cmd>FloatermNew zig build run -- examples/main.lang; temp/code; echo $status<cr>", options)
-map("n", "<leader>v", "<cmd>FloatermNew lazygit<cr>", options)
+-- map("n", "<leader>c", "<cmd>term zig build run -Drelease-fast -- examples/start.ra; temp/code<cr>", options)
+map("n", "<leader>c", "<cmd>term zig build run -- examples/start.ra; temp/code<cr>", options)
+map("n", "<leader>v", "<cmd>term lazygit<cr>", options)
 map("n", "s", "<Plug>(easymotion-s2)", {})
 map("n", "<tab>", "<cmd>BufferLineCycleNext<CR>", options)
 map("n", "<s-tab>", "<cmd>BufferLineCyclePrev<CR>", options)
@@ -87,13 +131,13 @@ local lspconfig = require'lspconfig'
 local configs = require'lspconfig/configs'
 
 local on_attach = function(client, _)
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false,
-        signs = true,
-        update_in_insert = false,
-      }
-    )
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      virtual_text = false,
+      signs = true,
+      update_in_insert = false,
+    }
+  )
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec([[
       hi LspReferenceRead cterm=bold ctermbg=red guibg=#4B5263
@@ -168,11 +212,44 @@ require('lspkind').init()
 
 require('bufferline').setup{ options = { always_show_bufferline = false }}
 
-require('statusline')
-
 local saga = require('lspsaga')
 saga.init_lsp_saga {
   finder_action_keys = {
     open = '<cr>'
   }
+}
+
+require('lualine').setup{options = {theme='material'}}
+
+require('compe').setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+    ultisnips = true;
+  };
+}
+
+cmd([[highlight link CompeDocumentation NormalFloat]])
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
 }

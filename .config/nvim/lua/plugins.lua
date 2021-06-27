@@ -24,6 +24,8 @@ return require('packer').startup(function()
   use 'onsails/lspkind-nvim'
   use 'akinsho/nvim-bufferline.lua'
   use 'hoob3rt/lualine.nvim'
-  use 'marko-cerovac/material.nvim'
+  use 'folke/tokyonight.nvim'
+  use 'shaunsingh/moonlight.nvim'
   use 'hrsh7th/vim-vsnip'
+  use 'p00f/nvim-ts-rainbow'
 end)

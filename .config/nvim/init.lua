@@ -26,7 +26,6 @@ g.mapleader = ' '
 g.floaterm_width = 0.8
 g.floaterm_height = 0.8
 g.nvim_tree_side = 'right'
-g.material_style = 'palenight'
 
 cmd("let g:test#custom_runners = {'zig': ['Zigtest']}")
 cmd([[
@@ -38,7 +37,7 @@ let test#python#pytest#options = '-s'
 -- cmd('au ColorScheme * hi Normal ctermbg=none guibg=none')
 
 cmd('syntax on')
-cmd('colorscheme material')
+require('moonlight').set()
 cmd('autocmd BufWritePost plugins.lua PackerCompile')
 cmd('au BufNewFile,BufRead *.ra setlocal ft=clojure')
 
@@ -119,7 +118,8 @@ map("n", "<leader>tn", "<cmd>TestNearest<cr>", options)
 map("n", "<leader>tf", "<cmd>TestFile<cr>", options)
 map("n", "<leader>tl", "<cmd>TestLast<cr>", options)
 map("n", "<leader>tv", "<cmd>TestVisit<cr>", options)
-map("n", "<leader>ts", "<cmd>TestSuite<cr>", options)
+-- map("n", "<leader>ts", "<cmd>TestSuite<cr>", options)
+map("n", "<leader>ts", "<cmd>term zig build test<cr>", options)
 -- map("n", "<leader>c", "<cmd>term zig build run -Drelease-fast -- examples/start.ra; temp/code<cr>", options)
 map("n", "<leader>c", "<cmd>term zig build run -- examples/start.ra; temp/code<cr>", options)
 map("n", "<leader>v", "<cmd>term lazygit<cr>", options)
@@ -219,7 +219,7 @@ saga.init_lsp_saga {
   }
 }
 
-require('lualine').setup{options = {theme='material'}}
+require('lualine').setup{options = {theme='moonlight'}}
 
 require('compe').setup {
   enabled = true;
@@ -251,5 +251,10 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
   highlight = {
     enable = true,
+  },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = 1000,
   },
 }

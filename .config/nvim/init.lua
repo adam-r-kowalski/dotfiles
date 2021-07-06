@@ -96,7 +96,9 @@ map("n", "<leader>dl", "<cmd>lua require('lspsaga.diagnostic').show_line_diagnos
 map("n", "<leader>dc", "<cmd>lua require('lspsaga.diagnostic').show_cursor_diagnostics()<cr>", options)
 map("n", "<leader>dp", "<cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev()<cr>", options)
 map("n", "<leader>dn", "<cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_next()<cr>", options)
-map("n", "<leader>s", "<cmd>luafile %<cr>", options)
+map("n", "<leader>sd", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", options)
+map("n", "<leader>sw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", options)
+map("n", "<leader>sf", "<cmd>luafile %<cr>", options)
 map("n", "<leader>i", "<cmd>edit ~/.config/nvim/init.lua <cr>", options)
 map("n", "<leader>e", ":NvimTreeFindFile<cr>", options)
 map("n", "<leader>pi", "<cmd>PackerInstall<cr>", options)
@@ -118,8 +120,8 @@ map("n", "<leader>tn", "<cmd>TestNearest<cr>", options)
 map("n", "<leader>tf", "<cmd>TestFile<cr>", options)
 map("n", "<leader>tl", "<cmd>TestLast<cr>", options)
 map("n", "<leader>tv", "<cmd>TestVisit<cr>", options)
--- map("n", "<leader>ts", "<cmd>TestSuite<cr>", options)
-map("n", "<leader>ts", "<cmd>term zig build test<cr>", options)
+map("n", "<leader>ts", "<cmd>TestSuite<cr>", options)
+map("n", "<leader>o", "<cmd>SymbolsOutline<cr>", options)
 -- map("n", "<leader>c", "<cmd>term zig build run -Drelease-fast -- examples/start.ra; temp/code<cr>", options)
 map("n", "<leader>c", "<cmd>term zig build run -- examples/start.ra; temp/code<cr>", options)
 map("n", "<leader>v", "<cmd>term lazygit<cr>", options)
@@ -149,6 +151,13 @@ local on_attach = function(client, _)
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
     ]], false)
+  end
+
+  if client.resolved_capabilities.document_formatting then
+    cmd [[augroup Format]]
+    cmd [[autocmd! * <buffer>]]
+    cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+    cmd [[augroup END]]
   end
 end
 
@@ -188,6 +197,7 @@ lspconfig.lua.setup {
 }
 
 lspconfig.python.setup { on_attach = on_attach }
+lspconfig.rust.setup { on_attach = on_attach }
 
 if not lspconfig.clangd then
   configs.clangd = {
@@ -257,4 +267,23 @@ require'nvim-treesitter.configs'.setup {
     extended_mode = true,
     max_file_lines = 1000,
   },
+}
+
+vim.g.symbols_outline = {
+  highlight_hovered_item = true,
+  show_guides = true,
+  auto_preview = true,
+  position = 'right',
+  show_numbers = false,
+  show_relative_numbers = false,
+  show_symbol_details = true,
+  keymaps = {
+    close = "<Esc>",
+    goto_location = "<Cr>",
+    focus_location = "o",
+    hover_symbol = "<C-space>",
+    rename_symbol = "r",
+    code_actions = "a",
+  },
+  lsp_blacklist = {},
 }

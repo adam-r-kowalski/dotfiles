@@ -11,10 +11,20 @@ return {
 		indent = { enabled = true },
 		input = { enabled = true },
 		lazygit = { enabled = true },
+		quickfile = { enabled = true },
+		scope = { enabled = true },
+		scroll = { enabled = true },
+		statuscolumn = { enabled = true },
+		notifier = {
+			enabled = true,
+			timeout = 3000,
+		},
 		zen = {
 			enabled = true,
 			toggles = {
 				dim = true,
+				git_signs = true,
+				diagnostics = true,
 			},
 			win = {
 				backdrop = {

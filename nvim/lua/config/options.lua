@@ -22,3 +22,8 @@ vim.opt.incsearch = true
 
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
+
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.swapfile = false
+vim.opt.errorbells = false

@@ -2,7 +2,13 @@ return {
 	"saghen/blink.cmp",
 	dependencies = {
 		"rafamadriz/friendly-snippets",
-		{ "folke/lazydev.nvim", ft = "lua", opts = {} },
+		{
+			"folke/lazydev.nvim",
+			ft = "lua",
+			opts = {
+				library = { "nvim-dap-ui" },
+			},
+		},
 	},
 	version = "1.*",
 	opts = {

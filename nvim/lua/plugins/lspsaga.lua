@@ -19,7 +19,7 @@ return {
 	keys = {
 		{ "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "Next diagnostic" },
 		{ "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", desc = "Prev diagnostic" },
-		{ "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<cr>", desc = "Cursor diagnostic" },
+		{ "<leader>D", "<cmd>Lspsaga show_cursor_diagnostics<cr>", desc = "Cursor diagnostic" },
 		{ "<leader>a", "<cmd>Lspsaga code_action<cr>", desc = "Code action" },
 		{ "K", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover documentation" },
 		{ "gh", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover documentation" },

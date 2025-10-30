@@ -34,41 +34,20 @@ return {
 			},
 		},
 	},
-	keys = {
-		{
-			"<leader>f",
-			function()
-				require("snacks").picker.files()
-			end,
-			desc = "Files",
-		},
-		{
-			"<leader>/",
-			function()
-				require("snacks").picker.grep()
-			end,
-			desc = "Grep",
-		},
-		{
-			"<leader>b",
-			function()
-				require("snacks").picker.buffers()
-			end,
-			desc = "Buffers",
-		},
-		{
-			"<leader>z",
-			function()
-				require("snacks").zen()
-			end,
-			desc = "Zen",
-		},
-		{
-			"<leader>g",
-			function()
-				require("snacks").lazygit()
-			end,
-			desc = "Git",
-		},
-	},
+	keys = function()
+		local snacks = require("snacks")
+		local function zen()
+			snacks.zen()
+		end
+		local function lazygit()
+			snacks.lazygit()
+		end
+		return {
+			{ "<leader>f", snacks.picker.files, desc = "Files" },
+			{ "<leader>/", snacks.picker.grep, desc = "Grep" },
+			{ "<leader>b", snacks.picker.buffers, desc = "Buffers" },
+			{ "<leader>z", zen, desc = "Zen" },
+			{ "<leader>g", lazygit, desc = "Git" },
+		}
+	end,
 }

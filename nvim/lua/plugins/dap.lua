@@ -5,6 +5,7 @@ return {
 		"mfussenegger/nvim-dap",
 		"jay-babu/mason-nvim-dap.nvim",
 		"nvim-neotest/nvim-nio",
+		"nvimtools/hydra.nvim",
 	},
 	config = function()
 		require("mason-nvim-dap").setup({
@@ -66,10 +67,39 @@ return {
 		dap.listeners.before.event_exited.dapui_config = function()
 			dapui.close()
 		end
+
+		require("hydra")({
+			name = "Debug",
+			hint = [[
+ _c_: continue  _i_: step into  _o_: step over  _O_: step out
+ _b_: breakpoint  _t_: toggle UI  _r_: REPL  _q_: quit
+]],
+			config = {
+				color = "pink",
+				invoke_on_body = true,
+				hint = {
+					border = "rounded",
+					position = "bottom",
+				},
+			},
+			mode = "n",
+			body = "<leader>dh",
+			heads = {
+				{ "c", dap.continue, { desc = "continue" } },
+				{ "i", dap.step_into, { desc = "step into" } },
+				{ "o", dap.step_over, { desc = "step over" } },
+				{ "O", dap.step_out, { desc = "step out" } },
+				{ "b", dap.toggle_breakpoint, { desc = "breakpoint" } },
+				{ "t", dapui.toggle, { desc = "toggle UI" } },
+				{ "r", dap.repl.open, { desc = "REPL" } },
+				{ "q", nil, { exit = true, desc = "quit" } },
+			},
+		})
 	end,
 	keys = function()
 		local dap = require("dap")
 		local dapui = require("dapui")
+
 		return {
 			{ "<leader>db", dap.toggle_breakpoint, desc = "Toggle breakpoint" },
 			{ "<leader>dc", dap.continue, desc = "Continue" },

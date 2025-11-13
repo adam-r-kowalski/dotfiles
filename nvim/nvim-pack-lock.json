@@ -1,0 +1,20 @@
+{
+  "plugins": {
+    "mini.clue": {
+      "rev": "015320e",
+      "src": "https://github.com/nvim-mini/mini.clue.git"
+    },
+    "mini.pairs": {
+      "rev": "b316e68",
+      "src": "http://github.com/nvim-mini/mini.pairs.git"
+    },
+    "rainbow-delimiters.nvim": {
+      "rev": "8aafe2c",
+      "src": "https://github.com/HiPhish/rainbow-delimiters.nvim.git"
+    },
+    "tokyonight.nvim": {
+      "rev": "5da1b76",
+      "src": "http://github.com/folke/tokyonight.nvim.git"
+    }
+  }
+}

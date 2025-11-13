@@ -1,2 +1,5 @@
-require("config.lazy")
-require("config.options")
+require('config.options')
+require('plugins.clue')
+require('plugins.pairs')
+require('plugins.rainbow-delimiters')
+require('plugins.tokyonight')

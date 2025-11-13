@@ -5,6 +5,7 @@ o.shiftwidth = 2
 o.softtabstop = 2
 o.expandtab = true
 o.autoread = true
+o.cmdheight = 0
 o.signcolumn = 'yes'
 o.backspace = 'indent,eol,start'
 o.winborder = 'rounded'

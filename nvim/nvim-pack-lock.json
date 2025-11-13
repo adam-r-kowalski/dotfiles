@@ -20,6 +20,10 @@
       "rev": "26baa62",
       "src": "https://github.com/nvim-mini/mini.files.git"
     },
+    "mini.icons": {
+      "rev": "ff2e4f1",
+      "src": "https://github.com/nvim-mini/mini.icons.git"
+    },
     "mini.pairs": {
       "rev": "b316e68",
       "src": "http://github.com/nvim-mini/mini.pairs.git"

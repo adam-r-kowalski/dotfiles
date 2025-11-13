@@ -1,5 +1,7 @@
 require('config.options')
 require('plugins.clue')
+require('plugins.files')
+require('plugins.git')
 require('plugins.pairs')
 require('plugins.rainbow-delimiters')
 require('plugins.tokyonight')

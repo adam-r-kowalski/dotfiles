@@ -1,8 +1,16 @@
 {
   "plugins": {
+    "mini-git": {
+      "rev": "8324672",
+      "src": "https://github.com/nvim-mini/mini-git.git"
+    },
     "mini.clue": {
       "rev": "015320e",
       "src": "https://github.com/nvim-mini/mini.clue.git"
+    },
+    "mini.files": {
+      "rev": "26baa62",
+      "src": "https://github.com/nvim-mini/mini.files.git"
     },
     "mini.pairs": {
       "rev": "b316e68",

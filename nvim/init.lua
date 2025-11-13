@@ -1,8 +1,11 @@
 require('config.options')
+
+require('plugins.animate')
 require('plugins.clue')
 require('plugins.diff')
 require('plugins.files')
 require('plugins.git')
 require('plugins.pairs')
+require('plugins.pick')
 require('plugins.rainbow-delimiters')
 require('plugins.tokyonight')

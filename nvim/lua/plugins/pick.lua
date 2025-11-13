@@ -1,0 +1,6 @@
+vim.pack.add({'https://github.com/nvim-mini/mini.pick.git'})
+local MiniPick = require('mini.pick')
+MiniPick.setup()
+vim.keymap.set('n', '<leader>f', MiniPick.builtin.files, { desc = 'Files' })
+vim.keymap.set('n', '<leader>b', MiniPick.builtin.buffers, { desc = 'Buffers' })
+vim.keymap.set('n', '<leader>/', MiniPick.builtin.grep_live, { desc = 'Grep' })

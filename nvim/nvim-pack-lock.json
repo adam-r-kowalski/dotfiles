@@ -4,6 +4,10 @@
       "rev": "8324672",
       "src": "https://github.com/nvim-mini/mini-git.git"
     },
+    "mini.animate": {
+      "rev": "0365de8",
+      "src": "https://github.com/nvim-mini/mini.animate.git"
+    },
     "mini.clue": {
       "rev": "015320e",
       "src": "https://github.com/nvim-mini/mini.clue.git"
@@ -19,6 +23,10 @@
     "mini.pairs": {
       "rev": "b316e68",
       "src": "http://github.com/nvim-mini/mini.pairs.git"
+    },
+    "mini.pick": {
+      "rev": "fe1c25e",
+      "src": "https://github.com/nvim-mini/mini.pick.git"
     },
     "rainbow-delimiters.nvim": {
       "rev": "8aafe2c",

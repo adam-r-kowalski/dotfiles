@@ -1,4 +1,5 @@
 local o = vim.opt
+local g = vim.g
 o.tabstop = 2
 o.shiftwidth = 2
 o.softtabstop = 2
@@ -25,3 +26,4 @@ o.backup = false
 o.writebackup = false
 o.swapfile = false
 o.errorbells = false
+g.mapleader = "<space>"

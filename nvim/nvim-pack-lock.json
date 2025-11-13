@@ -8,6 +8,10 @@
       "rev": "015320e",
       "src": "https://github.com/nvim-mini/mini.clue.git"
     },
+    "mini.diff": {
+      "rev": "fbb93ea",
+      "src": "https://github.com/nvim-mini/mini.diff.git"
+    },
     "mini.files": {
       "rev": "26baa62",
       "src": "https://github.com/nvim-mini/mini.files.git"

@@ -1,5 +1,6 @@
 require('config.options')
 require('plugins.clue')
+require('plugins.diff')
 require('plugins.files')
 require('plugins.git')
 require('plugins.pairs')

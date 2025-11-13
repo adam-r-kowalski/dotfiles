@@ -1,2 +1,6 @@
 vim.pack.add({'https://github.com/nvim-mini/mini-git.git'})
 require('mini.git').setup()
+vim.keymap.set('n', '<leader>gs', ':Git status<cr>')
+vim.keymap.set('n', '<leader>ga', ':Git add .<cr>')
+vim.keymap.set('n', '<leader>gc', ':Git commit<cr>')
+vim.keymap.set('n', '<leader>gl', ':Git log<cr>')

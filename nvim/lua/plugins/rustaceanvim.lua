@@ -1,1 +1,1 @@
-vim.pack.add({'https://github.com/mrcjkb/rustaceanvim.git'})
+vim.pack.add({ "https://github.com/mrcjkb/rustaceanvim.git" })

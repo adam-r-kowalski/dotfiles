@@ -1,5 +1,25 @@
 {
   "plugins": {
+    "conform.nvim": {
+      "rev": "cde4da5",
+      "src": "https://github.com/stevearc/conform.nvim.git"
+    },
+    "lazydev.nvim": {
+      "rev": "5231c62",
+      "src": "https://github.com/folke/lazydev.nvim.git"
+    },
+    "mason-lspconfig.nvim": {
+      "rev": "b1d9a91",
+      "src": "https://github.com/mason-org/mason-lspconfig.nvim.git"
+    },
+    "mason-tool-installer.nvim": {
+      "rev": "517ef59",
+      "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim.git"
+    },
+    "mason.nvim": {
+      "rev": "57e5a8a",
+      "src": "https://github.com/mason-org/mason.nvim.git"
+    },
     "mini-git": {
       "rev": "8324672",
       "src": "https://github.com/nvim-mini/mini-git.git"
@@ -48,6 +68,10 @@
       "rev": "234fc04",
       "src": "https://github.com/catppuccin/nvim.git"
     },
+    "nvim-lspconfig": {
+      "rev": "cc3d020",
+      "src": "https://github.com/neovim/nvim-lspconfig.git"
+    },
     "nvim-treesitter": {
       "rev": "42fc28ba",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter.git"
@@ -59,6 +83,10 @@
     "rustaceanvim": {
       "rev": "6bd02e9",
       "src": "https://github.com/mrcjkb/rustaceanvim.git"
+    },
+    "tokyonight.nvim": {
+      "rev": "5da1b76",
+      "src": "https://github.com/folke/tokyonight.nvim.git"
     }
   }
 }

@@ -30,7 +30,7 @@
     },
     "mini.pairs": {
       "rev": "b316e68",
-      "src": "http://github.com/nvim-mini/mini.pairs.git"
+      "src": "https://github.com/nvim-mini/mini.pairs.git"
     },
     "mini.pick": {
       "rev": "fe1c25e",
@@ -48,13 +48,17 @@
       "rev": "234fc04",
       "src": "https://github.com/catppuccin/nvim.git"
     },
+    "nvim-treesitter": {
+      "rev": "42fc28ba",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter.git"
+    },
     "rainbow-delimiters.nvim": {
       "rev": "8aafe2c",
       "src": "https://github.com/HiPhish/rainbow-delimiters.nvim.git"
     },
-    "tokyonight.nvim": {
-      "rev": "5da1b76",
-      "src": "http://github.com/folke/tokyonight.nvim.git"
+    "rustaceanvim": {
+      "rev": "6bd02e9",
+      "src": "https://github.com/mrcjkb/rustaceanvim.git"
     }
   }
 }

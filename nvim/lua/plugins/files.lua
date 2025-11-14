@@ -1,5 +1,7 @@
 vim.pack.add({ "https://github.com/nvim-mini/mini.files.git" })
+
 local MiniFiles = require("mini.files")
+
 MiniFiles.setup({
 	mappings = {
 		close = "q",
@@ -17,4 +19,8 @@ MiniFiles.setup({
 		trim_right = ">",
 	},
 })
-vim.keymap.set("n", "-", MiniFiles.open)
+
+vim.keymap.set("n", "-", function()
+	MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+	MiniFiles.reveal_cwd()
+end)

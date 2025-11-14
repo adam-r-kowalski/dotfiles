@@ -42,4 +42,8 @@ miniclue.setup({
 		miniclue.gen_clues.windows(),
 		miniclue.gen_clues.z(),
 	},
+
+	window = {
+		delay = 0,
+	},
 })

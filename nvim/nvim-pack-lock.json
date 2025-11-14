@@ -40,6 +40,14 @@
       "rev": "1491990",
       "src": "https://github.com/nvim-mini/mini.statusline.git"
     },
+    "nord.nvim": {
+      "rev": "07647ad",
+      "src": "https://github.com/gbprod/nord.nvim.git"
+    },
+    "nvim": {
+      "rev": "234fc04",
+      "src": "https://github.com/catppuccin/nvim.git"
+    },
     "rainbow-delimiters.nvim": {
       "rev": "8aafe2c",
       "src": "https://github.com/HiPhish/rainbow-delimiters.nvim.git"

@@ -24,6 +24,10 @@
       "rev": "8324672",
       "src": "https://github.com/nvim-mini/mini-git.git"
     },
+    "mini.ai": {
+      "rev": "0d3c9cf",
+      "src": "https://github.com/nvim-mini/mini.ai.git"
+    },
     "mini.animate": {
       "rev": "0365de8",
       "src": "https://github.com/nvim-mini/mini.animate.git"
@@ -31,6 +35,10 @@
     "mini.clue": {
       "rev": "015320e",
       "src": "https://github.com/nvim-mini/mini.clue.git"
+    },
+    "mini.completion": {
+      "rev": "7c5edfc",
+      "src": "https://github.com/nvim-mini/mini.completion.git"
     },
     "mini.diff": {
       "rev": "fbb93ea",
@@ -40,6 +48,10 @@
       "rev": "26baa62",
       "src": "https://github.com/nvim-mini/mini.files.git"
     },
+    "mini.hipatterns": {
+      "rev": "add8d8a",
+      "src": "https://github.com/nvim-mini/mini.hipatterns.git"
+    },
     "mini.icons": {
       "rev": "ff2e4f1",
       "src": "https://github.com/nvim-mini/mini.icons.git"
@@ -47,6 +59,18 @@
     "mini.indentscope": {
       "rev": "0308f94",
       "src": "https://github.com/nvim-mini/mini.indentscope.git"
+    },
+    "mini.jump": {
+      "rev": "99799e8",
+      "src": "https://github.com/nvim-mini/mini.jump.git"
+    },
+    "mini.jump2d": {
+      "rev": "7a089cb",
+      "src": "https://github.com/nvim-mini/mini.jump2d.git"
+    },
+    "mini.notify": {
+      "rev": "135dcfd",
+      "src": "https://github.com/nvim-mini/mini.notify.git"
     },
     "mini.pairs": {
       "rev": "b316e68",
@@ -56,9 +80,17 @@
       "rev": "fe1c25e",
       "src": "https://github.com/nvim-mini/mini.pick.git"
     },
+    "mini.snippets": {
+      "rev": "66c041f",
+      "src": "https://github.com/nvim-mini/mini.snippets.git"
+    },
     "mini.statusline": {
       "rev": "1491990",
       "src": "https://github.com/nvim-mini/mini.statusline.git"
+    },
+    "mini.trailspace": {
+      "rev": "f8083ca",
+      "src": "https://github.com/nvim-mini/mini.trailspace.git"
     },
     "nord.nvim": {
       "rev": "07647ad",

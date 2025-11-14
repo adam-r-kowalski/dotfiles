@@ -1,3 +1,5 @@
+require('config.keymaps')
+require('config.lsp')
 require('config.options')
 
 require('plugins.animate')

@@ -1,0 +1,5 @@
+keybind = shift+enter=text:\n
+theme = Nordic
+macos-titlebar-style = hidden
+window-padding-x = 4
+window-padding-y = 12

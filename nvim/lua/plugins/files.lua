@@ -21,6 +21,14 @@ MiniFiles.setup({
 })
 
 vim.keymap.set("n", "-", function()
-	MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-	MiniFiles.reveal_cwd()
+	local bufname = vim.api.nvim_buf_get_name(0)
+	-- Don't pass minifiles:// buffer names, use the file path or nil instead
+	if not bufname:match("^minifiles://") then
+		MiniFiles.open(bufname, false)
+		MiniFiles.reveal_cwd()
+	else
+		-- If already in mini.files, just close and reopen at cwd
+		MiniFiles.close()
+		MiniFiles.open(vim.fn.getcwd(), false)
+	end
 end)

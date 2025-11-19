@@ -2,6 +2,7 @@ vim.pack.add({
 	"https://github.com/nvim-neotest/nvim-nio.git",
 	"https://github.com/nvim-lua/plenary.nvim.git",
 	"https://github.com/nvim-neotest/neotest.git",
+	"https://github.com/nvim-neotest/neotest-python.git",
 })
 
 local neotest = require("neotest")
@@ -9,6 +10,7 @@ local neotest = require("neotest")
 neotest.setup({
 	adapters = {
 		require("rustaceanvim.neotest"),
+		require("neotest-python"),
 	},
 })
 

@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "FixCursorHold.nvim": {
+      "rev": "1900f89",
+      "src": "https://github.com/antoinemadec/FixCursorHold.nvim.git"
+    },
     "conform.nvim": {
       "rev": "cde4da5",
       "src": "https://github.com/stevearc/conform.nvim.git"
@@ -92,6 +96,10 @@
       "rev": "f8083ca",
       "src": "https://github.com/nvim-mini/mini.trailspace.git"
     },
+    "neotest": {
+      "rev": "deadfb1",
+      "src": "https://github.com/nvim-neotest/neotest.git"
+    },
     "nordic.nvim": {
       "rev": "6afe957",
       "src": "https://github.com/AlexvZyl/nordic.nvim.git"
@@ -100,9 +108,17 @@
       "rev": "c6f05c0",
       "src": "https://github.com/neovim/nvim-lspconfig.git"
     },
+    "nvim-nio": {
+      "rev": "21f5324",
+      "src": "https://github.com/nvim-neotest/nvim-nio.git"
+    },
     "nvim-treesitter": {
       "rev": "42fc28ba",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter.git"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd522",
+      "src": "https://github.com/nvim-lua/plenary.nvim.git"
     },
     "rainbow-delimiters.nvim": {
       "rev": "8aafe2c",

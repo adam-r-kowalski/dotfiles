@@ -108,6 +108,14 @@
       "rev": "6afe957",
       "src": "https://github.com/AlexvZyl/nordic.nvim.git"
     },
+    "nvim-dap": {
+      "rev": "5860c7c",
+      "src": "https://github.com/mfussenegger/nvim-dap.git"
+    },
+    "nvim-dap-ui": {
+      "rev": "cf91d5e",
+      "src": "https://github.com/rcarriga/nvim-dap-ui.git"
+    },
     "nvim-lspconfig": {
       "rev": "c6f05c0",
       "src": "https://github.com/neovim/nvim-lspconfig.git"

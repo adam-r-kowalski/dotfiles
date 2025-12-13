@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("PackChanged", { callback = hooks })
 vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter.git" })
 
 require("nvim-treesitter.configs").setup({
-	ensure_installed = { "lua", "rust", "wgsl" },
+	ensure_installed = { "lua", "rust", "wgsl", "html", "javascript", "css" },
 	auto_install = true,
 	indent = {
 		enable = true,

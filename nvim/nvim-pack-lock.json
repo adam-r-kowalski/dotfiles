@@ -1,143 +1,139 @@
 {
   "plugins": {
-    "FixCursorHold.nvim": {
-      "rev": "1900f89",
-      "src": "https://github.com/antoinemadec/FixCursorHold.nvim.git"
-    },
     "conform.nvim": {
-      "rev": "cde4da5",
+      "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim.git"
     },
     "kanagawa.nvim": {
-      "rev": "aef7f5c",
+      "rev": "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3",
       "src": "https://github.com/rebelot/kanagawa.nvim.git"
     },
     "lazydev.nvim": {
-      "rev": "5231c62",
+      "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "https://github.com/folke/lazydev.nvim.git"
     },
     "mason-lspconfig.nvim": {
-      "rev": "b1d9a91",
+      "rev": "00b5473cca4db5b410ff4bae724e3b6e21f2687f",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim.git"
     },
     "mason-tool-installer.nvim": {
-      "rev": "517ef59",
+      "rev": "443f1ef8b5e6bf47045cb2217b6f748a223cf7dc",
       "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim.git"
     },
     "mason.nvim": {
-      "rev": "57e5a8a",
+      "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
       "src": "https://github.com/mason-org/mason.nvim.git"
     },
     "mini-git": {
-      "rev": "8324672",
+      "rev": "35d9a918721c533490f1ae9268a4f0b7c840e1f4",
       "src": "https://github.com/nvim-mini/mini-git.git"
     },
     "mini.animate": {
-      "rev": "0365de8",
+      "rev": "ed7d4a2a6fac1777e6da1446127eea87dd2419b5",
       "src": "https://github.com/nvim-mini/mini.animate.git"
     },
     "mini.clue": {
-      "rev": "015320e",
+      "rev": "ca0bab69c0a2612d33d72dac5d8aac93d459f7da",
       "src": "https://github.com/nvim-mini/mini.clue.git"
     },
     "mini.completion": {
-      "rev": "7c5edfc",
+      "rev": "ace27587795b84ae6a83b9bc7ff63aec0eebc252",
       "src": "https://github.com/nvim-mini/mini.completion.git"
     },
     "mini.diff": {
-      "rev": "fbb93ea",
+      "rev": "47ab8cf21c62cfd952008f2b9e79417c98173ec1",
       "src": "https://github.com/nvim-mini/mini.diff.git"
     },
     "mini.files": {
-      "rev": "26baa62",
+      "rev": "638b80cb985c89ca2a98eed72c552c8d485a3d5b",
       "src": "https://github.com/nvim-mini/mini.files.git"
     },
     "mini.hipatterns": {
-      "rev": "add8d8a",
+      "rev": "247c0173579a29af60f25f00671a75c57090be9c",
       "src": "https://github.com/nvim-mini/mini.hipatterns.git"
     },
     "mini.icons": {
-      "rev": "ff2e4f1",
+      "rev": "9e4c1645ce2b78afd6191b6be2c38bc0f998dd48",
       "src": "https://github.com/nvim-mini/mini.icons.git"
     },
     "mini.indentscope": {
-      "rev": "0308f94",
+      "rev": "f75e6e4d560641cbb42e97182819af0175bdfe0e",
       "src": "https://github.com/nvim-mini/mini.indentscope.git"
     },
     "mini.jump": {
-      "rev": "99799e8",
+      "rev": "a82ca82616b64439b467d6c9b44419870c6a4653",
       "src": "https://github.com/nvim-mini/mini.jump.git"
     },
     "mini.jump2d": {
-      "rev": "7a089cb",
+      "rev": "ed384d79a9433cb784d2240262e8a3efa9fc93b1",
       "src": "https://github.com/nvim-mini/mini.jump2d.git"
     },
     "mini.notify": {
-      "rev": "135dcfd",
+      "rev": "04dae72c012de9db45c4250645170f78f826731e",
       "src": "https://github.com/nvim-mini/mini.notify.git"
     },
     "mini.pairs": {
-      "rev": "b316e68",
+      "rev": "03eb1f0062a2cee5314d1ac3939246e4bb21352e",
       "src": "https://github.com/nvim-mini/mini.pairs.git"
     },
     "mini.pick": {
-      "rev": "b435139",
+      "rev": "9368112b7cafb61d837bed55fc6f40e55df53fa0",
       "src": "https://github.com/nvim-mini/mini.pick.git"
     },
     "mini.snippets": {
-      "rev": "66c041f",
+      "rev": "810c9aeb976791e3c329e0f073c82dab70fed8a7",
       "src": "https://github.com/nvim-mini/mini.snippets.git"
     },
     "mini.statusline": {
-      "rev": "1491990",
+      "rev": "d7133a9a244a8d93ccee42ff37fb9499af5956fb",
       "src": "https://github.com/nvim-mini/mini.statusline.git"
     },
     "mini.trailspace": {
-      "rev": "f8083ca",
+      "rev": "8bcd13b6d54d4c018982fea53e483937247d593b",
       "src": "https://github.com/nvim-mini/mini.trailspace.git"
     },
     "neotest": {
-      "rev": "deadfb1",
+      "rev": "27bf921498043f7ecd821d6db68d05de244bbd02",
       "src": "https://github.com/nvim-neotest/neotest.git"
     },
     "neotest-python": {
-      "rev": "b0d3a86",
+      "rev": "1b56ca4ba51c6014f986d6548ee629bdc95589d1",
       "src": "https://github.com/nvim-neotest/neotest-python.git"
     },
     "nordic.nvim": {
-      "rev": "6afe957",
+      "rev": "9fb62116b891184049c50ca6ffb0d3bc100a1a6e",
       "src": "https://github.com/AlexvZyl/nordic.nvim.git"
     },
     "nvim-dap": {
-      "rev": "5860c7c",
+      "rev": "cfa2d58f4537aca6ca83e2de1a0d9f1491121264",
       "src": "https://github.com/mfussenegger/nvim-dap.git"
     },
     "nvim-dap-ui": {
-      "rev": "cf91d5e",
+      "rev": "cc9dd33aade7f20bae414d0cba163bc60d4d4b43",
       "src": "https://github.com/rcarriga/nvim-dap-ui.git"
     },
     "nvim-lspconfig": {
-      "rev": "c6f05c0",
+      "rev": "77b7432d4770d23b277d37923e5a08a442d8bb07",
       "src": "https://github.com/neovim/nvim-lspconfig.git"
     },
     "nvim-nio": {
-      "rev": "21f5324",
+      "rev": "edcc181a875301dd21840189aa2f2f9ad69fc172",
       "src": "https://github.com/nvim-neotest/nvim-nio.git"
     },
     "nvim-treesitter": {
-      "rev": "42fc28ba",
+      "rev": "cf12346a3414fa1b06af75c79faebe7f76df080a",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter.git"
     },
     "plenary.nvim": {
-      "rev": "b9fd522",
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim.git"
     },
     "rainbow-delimiters.nvim": {
-      "rev": "8aafe2c",
+      "rev": "b55decda611755171bc5bf8f4c99603a75de4b41",
       "src": "https://github.com/HiPhish/rainbow-delimiters.nvim.git"
     },
     "rustaceanvim": {
-      "rev": "6bd02e9",
+      "rev": "6bd02e97a1f3102f06a72726764f24d3b3a33a85",
       "src": "https://github.com/mrcjkb/rustaceanvim.git"
     }
   }

@@ -136,6 +136,10 @@
     "rustaceanvim": {
       "rev": "6bd02e97a1f3102f06a72726764f24d3b3a33a85",
       "src": "https://github.com/mrcjkb/rustaceanvim.git"
+    },
+    "smith": {
+      "rev": "ad71082047c0db808ca24fc39af2d57ad51accd2",
+      "src": "git@github.com:adam-r-kowalski/smith"
     }
   }
 }

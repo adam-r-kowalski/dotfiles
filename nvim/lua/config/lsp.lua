@@ -11,5 +11,6 @@ vim.diagnostic.config({
 	severity_sort = true,
 })
 
--- Mason does not install clangd: after/lsp/clangd.lua runs Apple's, which matches the compiler smith runs.
-vim.lsp.enable("clangd")
+-- smith lsp is clangd from the LLVM smith compiles with, so the editor sees what the build sees. The smith plugin
+-- (plugins/smith.lua) defines its config; it replaces clangd, so clangd stays off.
+vim.lsp.enable("smith")
